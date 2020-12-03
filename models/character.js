@@ -1,6 +1,8 @@
 const db = require("../db");
 const ExpressError = require("../expressError");
 
+/** Playable characters that users create */
+
 class Character {
 
     static async create({name, age, c_class, race, background, details}){
@@ -15,8 +17,7 @@ class Character {
                 created_at),
             VALUES ($1, $2, $3, $4, $5, $6, current_timestamp)
             RETURNING name, age, c_class, race, background`,
-            [name, age, c_class, race, background, details]
-        )
+            [name, age, c_class, race, background, details]);
 
         return result.rows[0];
     }
@@ -31,8 +32,8 @@ class Character {
                     background,
                     details
             FROM characters
-            ORDER BY name`
-        )
+            ORDER BY name`);
+
         return results.rows;
     }
 
@@ -66,25 +67,25 @@ class Character {
     /** Edit character details based on name */
     static async edit(name) {
         const result = await db.query(
-        `UPDATE name,
-                age,
-                c_class,
-                race,
-                background,
-                details
-        WHERE name = $1
-        RETURNING name, age, c_class, race, background, details`,
-        [name]);
+            `UPDATE name,
+                    age,
+                    c_class,
+                    race,
+                    background,
+                    details
+            WHERE name = $1
+            RETURNING name, age, c_class, race, background, details`,
+            [name]);
 
         return result.rows[0];
     }
 
     static async delete(name) {
         const result = await db.query(
-        `DELETE FROM characters
-        WHERE name = $1
-        RETURNING name`,
-        [name]);
+            `DELETE FROM characters
+            WHERE name = $1
+            RETURNING name`,
+            [name]);
 
         return result.rows[0];
     }

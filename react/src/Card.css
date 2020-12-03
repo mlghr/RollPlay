@@ -1,0 +1,21 @@
+
+
+.container {
+    background-color: aquamarine;
+    border: solid 3px gold;
+    border-radius: 10px;
+    color: black;
+    font-family: helvetica;
+    padding: 20px;
+    padding-left: 30px;
+}
+
+.genBtn {
+    font-size: large;
+    background-color: gold;
+    color: black;
+    padding: 8px;
+    border-radius: 10px;
+    border: solid 3px black;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}

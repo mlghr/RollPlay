@@ -9,7 +9,6 @@ const ExpressError = require("../expressError");
 
 /** login: {username, password} => {token} */
 
-debugger;
 router.post("/login", async function (req, res, next) {
   try {
     let {username, password} = req.body;
