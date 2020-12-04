@@ -10,7 +10,8 @@
 }
 
 .App {
-  background-color: #282c34;
+  background: rgb(238,174,202);
+  background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -18,6 +19,11 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.App-header {
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  font-size: 75px;
 }
 
 .App-link {

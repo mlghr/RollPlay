@@ -1,14 +1,13 @@
-import logo from './logo.svg';
 import './App.css';
 import Carousel from "./Carousel";
 
 function App() {
   return (
     <div className="App">
+      <h1 className="App-header">
+        Welcome to the DnD
+      </h1>
       <Carousel />
-      <header className="App-header">
-        This is the app!
-      </header>
     </div>
 
   );

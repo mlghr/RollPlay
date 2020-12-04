@@ -1,6 +1,4 @@
-
-
-.container {
+/* .container {
     background-color: aquamarine;
     border: solid 3px gold;
     border-radius: 10px;
@@ -8,6 +6,14 @@
     font-family: helvetica;
     padding: 20px;
     padding-left: 30px;
+} */
+
+.card-text {
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.card-image {
+    border-radius: 10px;
 }
 
 .genBtn {
