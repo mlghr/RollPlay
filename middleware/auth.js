@@ -19,8 +19,8 @@ function authenticateJWT(req, res, next) {
 /** Middleware: Requires user is authenticated. */
 
 function ensureLoggedIn(req, res, next) {
-  console.log("hello i am a console.log");
   if (!req.user) {
+    console.log(`ensureLoggedIn ran!`)
     return next({ status: 401, message: "Unauthorized" });
   } else {
     return next();
@@ -31,13 +31,14 @@ function ensureLoggedIn(req, res, next) {
 
 function ensureCorrectUser(req, res, next) {
   try {
+    console.log(`ensureCorrectUser ran!`)
     if (req.user.username === req.params.username) {
       return next();
     } else {
       return next({ status: 401, message: "Unauthorized" });
     }
   } catch (err) {
-    // errors would happen here if we made a request and req.user is undefined
+    // errors would happen here if req.user is undefined
     return next({ status: 401, message: "Unauthorized" });
   }
 }

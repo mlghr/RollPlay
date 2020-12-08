@@ -13,9 +13,8 @@ class Character {
                 c_class,
                 race,
                 background,
-                details
-                created_at),
-            VALUES ($1, $2, $3, $4, $5, $6, current_timestamp)
+                details)
+            VALUES ($1, $2, $3, $4, $5, $6)
             RETURNING name, age, c_class, race, background`,
             [name, age, c_class, race, background, details]);
 
@@ -60,7 +59,6 @@ class Character {
         if(!results.rows[0]){
             throw new ExpressError(`Character: ${name} not found`, 404);
         }
-
         return results.rows[0];
     }
 

@@ -4,8 +4,7 @@ CREATE TABLE users (
     first_name text NOT NULL,
     last_name text NOT NULL,
     phone text NOT NULL,
-    c_id text FOREIGN KEY REFERENCES characters,
-    join_at timestamp without time zone NOT NULL,
+    join_at timestamp WITHOUT time zone NOT NULL,
     last_login_at timestamp with time zone
 );
 
@@ -16,9 +15,8 @@ CREATE TABLE characters (
     c_class text NOT NULL,
     race text NOT NULL,
     background text NOT NULL,
-    details text,
-    created_at timestamp with time zone NOT NULL
-)
+    details text
+);
 
 CREATE TABLE dummies (
     id SERIAL PRIMARY Key,
@@ -28,7 +26,7 @@ CREATE TABLE dummies (
     race text NOT NULL,
     background text NOT NULL,
     details text
-)
+);
 
 CREATE TABLE messages (
     id SERIAL PRIMARY KEY,

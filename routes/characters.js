@@ -1,6 +1,6 @@
 const Router = require("express").Router;
 const Character = require("../models/character")
-const {ensureLoggedIn, ensureCorrectUser} = require("../middleware/auth");
+const { ensureLoggedIn, ensureCorrectUser } = require("../middleware/auth");
 
 const router = new Router();
 
@@ -10,24 +10,49 @@ const router = new Router();
  *
  **/
 
-router.get("/characters", async function (req, res, next) {
-    const characters = Character.all();
-    return res.json({characters});
+router.get("/", async (req, res, next) =>{
+    try {
+        const characters = await Character.all();
+        return res.json({characters});
+    } catch (err) {
+        return next(err);
+    }
 })
 
-router.post("/character/new", async function (req, res, next) {
-    let character = await Character.create(req.body);
-    return res.json({character});
+router.get("/:name", async (req, res, next) =>{
+    try {
+        const character = await Character.get(req.body);
+        return res.json({character});
+    } catch (err) {
+        return next(err);
+    }
 })
 
-router.put("/:character/edit", async function (req, res, next) {
-    let character = await Character.edit(req.body);
-    return res.json({character});
+router.post("/new", async (req, res, next) => {
+    try {
+        const character = await Character.create(req.body);
+        return res.json({ character });
+    } catch (err) {
+        return next(err);
+    }
 })
 
-router.delete("/:character/delete", async function (req, res, next) {
-    let character = await Character.delete(req.body);
-    return res.json({character});
+router.put("/:name/edit", async (req, res, next) => {
+    try {
+        const character = await Character.edit(req.body);
+        return res.json({character});
+    } catch (err) {
+        return next(err);
+    }
+})
+
+router.delete("/:name/delete", async (req, res, next) => {
+    try {
+        const character = await Character.delete(req.body);
+        return res.json({character});
+    } catch (err) {
+        return next(err);
+    }
 })
 
 module.exports = router;

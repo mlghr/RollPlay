@@ -49,37 +49,37 @@ router.get("/:username", ensureCorrectUser, async function (req, res, next) {
  *
  **/
 
-router.get("/:username/to", ensureCorrectUser, async function (req, res, next) {
-  try {
-    let messages = await User.messagesTo(req.params.username);
-    return res.json({messages});
-  }
+// router.get("/:username/to", ensureCorrectUser, async function (req, res, next) {
+//   try {
+//     let messages = await User.messagesTo(req.params.username);
+//     return res.json({messages});
+//   }
 
-  catch (err) {
-    return next(err);
-  }
-});
+//   catch (err) {
+//     return next(err);
+//   }
+// });
 
-/** get messages from user
- *
- * => {messages: [{id,
- *                 body,
- *                 sent_at,
- *                 read_at,
- *                 to_user: {username, first_name, last_name, phone}}, ...]}
- *
- **/
+// /** get messages from user
+//  *
+//  * => {messages: [{id,
+//  *                 body,
+//  *                 sent_at,
+//  *                 read_at,
+//  *                 to_user: {username, first_name, last_name, phone}}, ...]}
+//  *
+//  **/
 
-router.get("/:username/from", ensureCorrectUser, async function (req, res, next) {
-  try {
-    let messages = await User.messagesFrom(req.params.username);
-    return res.json({messages});
-  }
+// router.get("/:username/from", ensureCorrectUser, async function (req, res, next) {
+//   try {
+//     let messages = await User.messagesFrom(req.params.username);
+//     return res.json({messages});
+//   }
 
-  catch (err) {
-    return next(err);
-  }
-});
+//   catch (err) {
+//     return next(err);
+//   }
+// });
 
 
 
