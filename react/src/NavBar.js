@@ -1,25 +1,21 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import SignUp from "./SignUp"
 import "./NavBar.css";
 
 function NavBar() {
   return (
     <nav className="NavBar">
-      <NavLink exact to="/users">
+      <NavLink className="Nav-Item" exact to="/users">
         Users
       </NavLink>
-      <NavLink exact to="/users/:username">
-        Users
+      <NavLink className="Nav-Item" exact to="/users/:username">
+        Single User
       </NavLink>
-      <NavLink exact to="/auth/login">
+      <NavLink className="Nav-Item" exact to="/auth/login">
         Login
       </NavLink>
-      <NavLink exact to="/auth/register">
+      <NavLink className="Nav-Item" exact to="/auth/register">
         Register
-      </NavLink>
-      <NavLink exact to="/auth/register">
-        <SignUp />
       </NavLink>
     </nav>
   );

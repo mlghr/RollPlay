@@ -4,7 +4,7 @@ function Home() {
   return (
     <main>
       <p>
-        Welcome to <b>Delvr</b>, a new way to meet nerds you like.
+        Welcome to <b>Delvr</b>, a new way to meet nerds.
       </p>
     </main>
   );
