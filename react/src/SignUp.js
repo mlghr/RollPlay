@@ -2,6 +2,24 @@ import React from "react";
 import "./SignUp.css";
 
 function SignUp(){
+
+    function handleChange(){
+        const history = useHistory();
+        const [activeView, setActiveView] = useState("login");
+        const [loginInfo, setLoginInfo] = useState({
+          username: "",
+          password: "",
+          first_name: "",
+          last_name: "",
+          email: "",
+          errors: []
+  });
+    }
+
+    function handleSubmit(e){
+        e.preventDefault();
+
+    }
     return (
         <form onSubmit={handleSubmit}>
             <label htmlFor="username">Username</label>

@@ -28,6 +28,12 @@ CREATE TABLE dummies (
     details text
 );
 
+CREATE TABLE posts (id SERIAL PRIMARY KEY, 
+                    title TEXT NOT NULL, 
+                    description TEXT NOT NULL,
+                    body TEXT, 
+                    votes INT NOT NULL DEFAULT 0);
+
 CREATE TABLE messages (
     id SERIAL PRIMARY KEY,
     from_username text NOT NULL REFERENCES users,

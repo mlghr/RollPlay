@@ -17,7 +17,7 @@ router.get("/", async (req, res, next) =>{
     } catch (err) {
         return next(err);
     }
-})
+});
 
 router.get("/:name", async (req, res, next) =>{
     try {
@@ -26,7 +26,7 @@ router.get("/:name", async (req, res, next) =>{
     } catch (err) {
         return next(err);
     }
-})
+});
 
 router.post("/new", async (req, res, next) => {
     try {
@@ -35,7 +35,7 @@ router.post("/new", async (req, res, next) => {
     } catch (err) {
         return next(err);
     }
-})
+});
 
 router.put("/:name/edit", async (req, res, next) => {
     try {
@@ -44,7 +44,7 @@ router.put("/:name/edit", async (req, res, next) => {
     } catch (err) {
         return next(err);
     }
-})
+});
 
 router.delete("/:name/delete", async (req, res, next) => {
     try {
@@ -53,6 +53,6 @@ router.delete("/:name/delete", async (req, res, next) => {
     } catch (err) {
         return next(err);
     }
-})
+});
 
 module.exports = router;

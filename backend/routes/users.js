@@ -15,8 +15,7 @@ router.get("/", ensureLoggedIn, async function (req, res, next) {
     let users = await User.all();
     console.log("This is the console.log")
     return res.json({users});
-  }
-
+  } 
   catch (err) {
     return next(err);
   }
@@ -33,7 +32,6 @@ router.get("/:username", ensureCorrectUser, async function (req, res, next) {
     let user = await User.get(req.params.username);
     return res.json({user});
   }
-
   catch (err) {
     return next(err);
   }
