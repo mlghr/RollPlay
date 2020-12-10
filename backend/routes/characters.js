@@ -19,9 +19,9 @@ router.get("/", async (req, res, next) =>{
     }
 });
 
-router.get("/:name", async (req, res, next) =>{
+router.get("/:c_name", async (req, res, next) =>{
     try {
-        const character = await Character.get(req.params.name);
+        const character = await Character.get(req.params.c_name);
         return res.json({character});
     } catch (err) {
         return next(err);
@@ -37,19 +37,19 @@ router.post("/new", async (req, res, next) => {
     }
 });
 
-router.put("/:name/edit", async (req, res, next) => {
+router.put("/:c_name/edit", async (req, res, next) => {
     try {
-        const character = await Character.edit(req.params.name);
+        const character = await Character.edit(req.params.c_name);
         return res.json({character});
     } catch (err) {
         return next(err);
     }
 });
 
-router.delete("/:name/delete", async (req, res, next) => {
+router.delete("/:c_name/delete", async (req, res, next) => {
     try {
         console.log(`Hello, I am ${req.params.name}`);
-        const character = await Character.delete(req.params.name);
+        const character = await Character.delete(req.params.c_name);
         return res.json({character});
     } catch (err) {
         return next(err);
