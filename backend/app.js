@@ -37,14 +37,20 @@ app.use(function(req, res, next) {
 
 /** general error handler */
 
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  if (process.env.NODE_ENV != "test") console.error(err.stack);
+// app.use(function(err, req, res, next) {
+//   res.status(err.status || 500);
+//   if (process.env.NODE_ENV != "test") console.error(err.stack);
+//   return res.json({
+//     error: err,
+//     message: err.message
+//   });
+// });
 
-  return res.json({
-    error: err,
-    message: err.message
-  });
+app.use(function (err, req, res, next) {
+  const status = err.status || 500;
+  const message = err.message;
+  if (process.env.NODE_ENV !== "test") console.error(status, err.stack);
+  return res.status(status).json({ error: { message, status } });
 });
 
 

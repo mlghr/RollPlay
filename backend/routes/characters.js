@@ -21,7 +21,7 @@ router.get("/", async (req, res, next) =>{
 
 router.get("/:name", async (req, res, next) =>{
     try {
-        const character = await Character.get(req.body);
+        const character = await Character.get(req.params.name);
         return res.json({character});
     } catch (err) {
         return next(err);
@@ -39,7 +39,7 @@ router.post("/new", async (req, res, next) => {
 
 router.put("/:name/edit", async (req, res, next) => {
     try {
-        const character = await Character.edit(req.body);
+        const character = await Character.edit(req.params.name);
         return res.json({character});
     } catch (err) {
         return next(err);
@@ -48,7 +48,8 @@ router.put("/:name/edit", async (req, res, next) => {
 
 router.delete("/:name/delete", async (req, res, next) => {
     try {
-        const character = await Character.delete(req.body);
+        console.log(`Hello, I am ${req.params.name}`);
+        const character = await Character.delete(req.params.name);
         return res.json({character});
     } catch (err) {
         return next(err);

@@ -13,7 +13,6 @@ const router = new Router();
 router.get("/", ensureLoggedIn, async function (req, res, next) {
   try {
     let users = await User.all();
-    console.log("This is the console.log")
     return res.json({users});
   } 
   catch (err) {

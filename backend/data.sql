@@ -1,4 +1,11 @@
-CREATE TABLE users (
+DROP DATABASE IF EXISTS "dnd";
+
+CREATE DATABASE "dnd";
+
+\c "dnd";
+
+CREATE TABLE users
+(
     username text PRIMARY KEY,
     password text NOT NULL,
     first_name text NOT NULL,
@@ -8,37 +15,22 @@ CREATE TABLE users (
     last_login_at timestamp with time zone
 );
 
-CREATE TABLE characters (
-    id SERIAL PRIMARY Key,
-    name text NOT NULL,
-    age integer NOT NULL,
-    c_class text NOT NULL,
-    race text NOT NULL,
-    background text NOT NULL,
-    details text
-);
+    CREATE TABLE characters
+    (
+        id SERIAL PRIMARY Key,
+        c_name text NOT NULL,
+        age integer NOT NULL,
+        c_class text NOT NULL,
+        race text NOT NULL,
+        background text NOT NULL,
+        details text,
+        is_dummy bool DEFAULT FALSE
+    );
 
-CREATE TABLE dummies (
-    id SERIAL PRIMARY Key,
-    name text NOT NULL,
-    age integer NOT NULL,
-    c_class text NOT NULL,
-    race text NOT NULL,
-    background text NOT NULL,
-    details text
-);
-
-CREATE TABLE posts (id SERIAL PRIMARY KEY, 
-                    title TEXT NOT NULL, 
-                    description TEXT NOT NULL,
-                    body TEXT, 
-                    votes INT NOT NULL DEFAULT 0);
-
-CREATE TABLE messages (
-    id SERIAL PRIMARY KEY,
-    from_username text NOT NULL REFERENCES users,
-    to_username text NOT NULL REFERENCES users,
-    body text NOT NULL,
-    sent_at timestamp with time zone NOT NULL,
-    read_at timestamp with time zone
-);
+INSERT INTO characters (c_name, age, c_class, race, background, details) VALUES
+    ('Jerk', 30, 'Warrior', 'Human', 'Outlander', 'Really interesting backstory'),
+    ('Guy', 20, 'Warrior', 'Human', 'Outlander', 'Really interesting backstory'),
+    ('Lady', 40, 'Warrior', 'Human', 'Outlander', 'Really interesting backstory'),
+    ('Momo', 50, 'Warrior', 'Human', 'Outlander', 'Really interesting backstory'),
+    ('Yorn', 80, 'Warrior', 'Human', 'Outlander', 'Really interesting backstory'),
+    ('Belm', 60, 'Warrior', 'Human', 'Outlander', 'Really interesting backstory');
