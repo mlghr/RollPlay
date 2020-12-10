@@ -12,10 +12,10 @@ const { BCRYPT_WORK_FACTOR } = require("../config");
 class User {
 
   /** register new user -- returns
-   *    {username, password, first_name, last_name, phone}
+   *    {username, password, first_name, last_name}
    */
 
-  static async register({username, password, first_name, last_name, phone}) {
+  static async register({username, password, first_name, last_name}) {
     let hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
     const result = await db.query(
         `INSERT INTO users (
@@ -23,12 +23,11 @@ class User {
               password,
               first_name,
               last_name,
-              phone,
               join_at,
               last_login_at)
             VALUES ($1, $2, $3, $4, $5, current_timestamp, current_timestamp)
-            RETURNING username, password, first_name, last_name, phone`,
-        [username, hashedPassword, first_name, last_name, phone]
+            RETURNING username, password, first_name, last_name`,
+        [username, hashedPassword, first_name, last_name]
     );
     return result.rows[0];
   }
@@ -67,7 +66,6 @@ class User {
         `SELECT username,
                 first_name,
                 last_name,
-                phone
             FROM users
             ORDER BY username`);
 
@@ -79,7 +77,6 @@ class User {
    * returns {username,
    *          first_name,
    *          last_name,
-   *          phone,
    *          join_at,
    *          last_login_at } */
 
@@ -88,7 +85,6 @@ class User {
         `SELECT username,
                 first_name,
                 last_name,
-                phone,
                 join_at,
                 last_login_at
             FROM users

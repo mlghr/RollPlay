@@ -16,7 +16,6 @@ function Carousel(props) {
 
     return (
         <div>
-          <button onClick={goBack} className="button">Back</button>
           {props.people.map(p => (
             <Card
               id={p.id}
