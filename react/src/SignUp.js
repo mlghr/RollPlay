@@ -22,7 +22,7 @@ const SignUp = () =>
     } ) )
   };
 
-  const handleSubmit = ( e ) =>
+  const handleSubmit = async ( e ) =>
   {
     e.preventDefault();
     const { username, password, first_name, last_name, phone } = formData;
