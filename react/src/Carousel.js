@@ -11,19 +11,17 @@ function Carousel(props) {
   const total = props.people.length;
   // const leftIconHidden = peopleIdx === 0 ? "hidden" : ""
   // const rightIconHidden = peopleIdx === total - 1 ? "hidden" : "";
-  const goForward = () => setPeopleIdx(peopleIdx === total - 1 ? peopleIdx === 0 : peopleIdx + 1);
-  const goBack = () => setPeopleIdx(peopleIdx === 0 ? peopleIdx === total - 1 : peopleIdx - 1); 
+  const goForward = () => setPeopleIdx(peopleIdx === total - 1 ? 0 : peopleIdx + 1);
+  const goBack = () => setPeopleIdx(peopleIdx === 0 ? (total - 1) : peopleIdx - 1); 
 
     return (
         <div>
+          <button onClick={goBack} className="button">Back</button>
           {props.people.map(p => (
             <Card
               id={p.id}
               name={p.name}
               age={p.age}
-              race={p.race}
-              class={p.class}
-              background={p.background}
               src={people.src}
               currNum={peopleIdx + 1}
               totalNum={total}

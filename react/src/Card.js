@@ -12,9 +12,6 @@ function Card (props) {
                 <img className="card-image" src={props.src} alt=""/>
                 <div className="card-text">Name: {props.name}</div>
                 <div className="card-text">Age: {props.age}</div>
-                <div className="card-text">Race: {props.race}</div>
-                <div className="card-text">Class: {props.class}</div>
-                <div className="card-text">Background: {props.background}</div>
                 <button className="genBtn">Match</button>
             </div>
         </div>

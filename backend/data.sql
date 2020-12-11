@@ -6,17 +6,16 @@ CREATE DATABASE "dnd";
 
 CREATE TABLE users
 (
-    username text PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
+    username text NOT NULL,
     password text NOT NULL,
     first_name text NOT NULL,
-    last_name text NOT NULL,
-    join_at timestamp WITHOUT time zone NOT NULL,
-    last_login_at timestamp with time zone
+    last_name text NOT NULL
 );
 
 CREATE TABLE characters
 (
-    id SERIAL PRIMARY Key,
+    id SERIAL PRIMARY KEY,
     c_name text NOT NULL,
     age integer NOT NULL,
     c_class text NOT NULL,

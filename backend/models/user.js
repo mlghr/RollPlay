@@ -22,11 +22,10 @@ class User {
               username,
               password,
               first_name,
-              last_name,
-              join_at,
-              last_login_at)
-            VALUES ($1, $2, $3, $4, $5, current_timestamp, current_timestamp)
-            RETURNING username, password, first_name, last_name`,
+              last_name
+              )
+            VALUES ($1, $2, $3, $4)
+            RETURNING username, first_name, last_name`,
         [username, hashedPassword, first_name, last_name]
     );
     return result.rows[0];
@@ -63,9 +62,10 @@ class User {
 
   static async all() {
     const result = await db.query(
-        `SELECT username,
+        `SELECT id,
+                username,
                 first_name,
-                last_name,
+                last_name
             FROM users
             ORDER BY username`);
 
@@ -82,11 +82,10 @@ class User {
 
   static async get(username) {
     const result = await db.query(
-        `SELECT username,
+        `SELECT id,
+                username,
                 first_name,
-                last_name,
-                join_at,
-                last_login_at
+                last_name
             FROM users
             WHERE username = $1`,
         [username]);
