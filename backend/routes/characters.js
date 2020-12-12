@@ -10,19 +10,19 @@ const router = new Router();
  *
  **/
 
-router.get("/", async (req, res, next) =>{
+router.get("/", async (req, res, next) => {
     try {
         const characters = await Character.all();
-        return res.json({characters});
+        return res.json({ characters });
     } catch (err) {
         return next(err);
     }
 });
 
-router.get("/:name", async (req, res, next) =>{
+router.get("/:name", async (req, res, next) => {
     try {
         const character = await Character.get(req.params.name);
-        return res.json({character});
+        return res.json({ character });
     } catch (err) {
         return next(err);
     }
@@ -39,8 +39,9 @@ router.post("/new", async (req, res, next) => {
 
 router.put("/:name/edit", async (req, res, next) => {
     try {
-        const character = await Character.edit(req.params.name);
-        return res.json({character});
+        console.log(req.body.name)
+        const character = await Character.edit(req.body.name);
+        return res.json({ character });
     } catch (err) {
         return next(err);
     }
@@ -50,7 +51,7 @@ router.delete("/:name/delete", async (req, res, next) => {
     try {
         console.log(`Hello, I am ${req.params.name}`);
         const character = await Character.delete(req.params.name);
-        return res.json({character});
+        return res.json({ character });
     } catch (err) {
         return next(err);
     }

@@ -9,9 +9,6 @@ function NavBar() {
         <NavLink className="NavLink-home" exact to="/">
           Home
         </NavLink>
-        <NavLink className="NavLink" exact to="/users/:username">
-          Single User
-        </NavLink>
         <NavLink className="NavLink" exact to="/users">
           Users
         </NavLink>

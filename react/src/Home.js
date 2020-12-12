@@ -3,9 +3,9 @@ import React from 'react';
 function Home() {
   return (
     <div>
-      <h1>Hot damn, I'm a header!</h1>
+      <h1>This is the app</h1>
       <p>
-        Welcome to <b>Delvr</b>, a new way to meet nerds.
+        Welcome to <b>APP</b>, a new way to do things
       </p>
     </div> 
   );

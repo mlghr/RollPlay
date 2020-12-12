@@ -66,10 +66,11 @@ class Character {
     static async edit(name) {
         const result = await db.query(
             `UPDATE characters 
-            SET name=$1, age=$2, c_class =$3, race=$4, background=$5, details=$6
-            WHERE name=$7
-            RETURNING name, age, c_class, race`,
-            [name, age, c_class, race, background, details, name]);
+            SET name=$1,
+                age=$2
+            WHERE name=$3
+            RETURNING name`,
+            [name, age, name]);
         return result.rows[0];
     }
 

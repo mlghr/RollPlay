@@ -29,11 +29,11 @@ const SignUp = () =>
     let res = await axios.post
       ( `${ API_URL }auth/register`,
         {
-          username: { username },
-          password: { password },
-          first_name: { first_name },
-          last_name: { last_name }
-        } ).then(r => r.json())
+          username: username,
+          password: password,
+          first_name: first_name,
+          last_name: last_name
+        } )
           .then(json => {
           console.log(json)
         })
