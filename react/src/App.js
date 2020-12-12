@@ -24,7 +24,7 @@ function App() {
         <NavBar />
         <Switch>
           <Route exact path="/" component={Home}/>
-          <Route exact path="/users/:c_name" component={Carousel}/>
+          <Route exact path="/users/:name" component={Carousel}/>
           <Route exact path="/users" component={Carousel}/>
           <Route exact path="/auth/login" component={SignUp}/>
           <Route exact path="/auth/register" component={SignUp}/>
