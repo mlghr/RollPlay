@@ -44,18 +44,18 @@ class User {
 
   /** Update last_login_at for user */
 
-  // static async updateLoginTimestamp(username) {
-  //   const result = await db.query(
-  //       `UPDATE users
-  //          SET last_login_at = current_timestamp
-  //          WHERE username = $1
-  //          RETURNING username`,
-  //       [username]);
+  static async updateLoginTimestamp(username) {
+    const result = await db.query(
+        `UPDATE users
+           SET last_login_at = current_timestamp
+           WHERE username = $1
+           RETURNING username`,
+        [username]);
 
-  //   if (!result.rows[0]) {
-  //     throw new ExpressError(`No such user: ${username}`, 404);
-  //   }
-  // }
+    if (!result.rows[0]) {
+      throw new ExpressError(`No such user: ${username}`, 404);
+    }
+  }
 
   /** All: basic info on all users:
    * [{username, first_name, last_name}, ...] */
@@ -67,31 +67,36 @@ class User {
                 first_name,
                 last_name
             FROM users
-            ORDER BY username`);
+            ORDER BY id`);
+
+    return result.rows;
+  }
+  
+  static async count(){
+    const result = await db.query(`SELECT count(*) FROM users`);
 
     return result.rows;
   }
 
-  /** Get: get user by username
+  /** Get: get user by id
    *
-   * returns {username,
+   * returns {id,
+   *          username,
    *          first_name,
-   *          last_name,
-   *          join_at,
-   *          last_login_at } */
+   *          last_name} */
 
-  static async get(username) {
+  static async get(id) {
     const result = await db.query(
         `SELECT id,
                 username,
                 first_name,
                 last_name
             FROM users
-            WHERE username = $1`,
-        [username]);
+            WHERE id = $1`,
+        [id]);
 
     if (!result.rows[0]) {
-      throw new ExpressError(`No such user: ${username}`, 404);
+      throw new ExpressError(`No such user: ${id}`, 404);
     }
 
     return result.rows[0];

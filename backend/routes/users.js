@@ -19,15 +19,29 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+/** gets total number of users. Used for generating random person for matches.
+ * Returns count object
+*/
+
+router.get("/count", async (req, res, next) => {
+  try {
+    let count = await User.count();
+    return res.json({count}.count);
+  } 
+  catch (err) {
+    return next(err);
+  }
+});
+
 /** get detail of users.
  *
  * => {user: {username, first_name, last_name}}
  *
  **/
 
-router.get("/:username", async (req, res, next) => {
+router.get("/:id", async (req, res, next) => {
   try {
-    let user = await User.get(req.params.username);
+    let user = await User.get(req.params.id);
     return res.json({user});
   }
   catch (err) {
