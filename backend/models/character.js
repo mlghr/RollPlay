@@ -63,14 +63,19 @@ class Character {
     }
 
     /** Edit character details based on name */
-    static async edit(name) {
+    static async edit({name, age, c_class, race, background, details}) {
+        console.log("This is the edit route")
         const result = await db.query(
             `UPDATE characters 
             SET name=$1,
-                age=$2
-            WHERE name=$3
+                age=$2,
+                c_class=$3,
+                race=$4,
+                background=$5,
+                details=$6
+            WHERE name=$7
             RETURNING name`,
-            [name, age, name]);
+            [name, age, c_class, race, background, details, name]);
         return result.rows[0];
     }
 

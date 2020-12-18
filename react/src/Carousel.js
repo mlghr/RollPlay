@@ -1,96 +1,79 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 import Card from "./Card";
-import randomIdFrom from "./helpers/randomIdFrom";
 import "./Carousel.css";
-import image1 from "./image1.jpg";
-import image2 from "./image2.jpg";
-import image3 from "./image3.jpg";
 
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000/";
+// const DB_API = process.env.REACT_APP_API_URL || "http://localhost:5000/";
 
 function Carousel(props) {
-  
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [error, setError] = useState(null);
-  // const [peopleIdx, setPeopleIdx] = useState(0);
-  // const people = props.people[peopleIdx];
-  // const total = props.people.length;
+  const [isLoading, setIsLoading] = useState(false);
+  const [user, setUser] = useState([]);
 
   useEffect(() => {
-    getUserCount()
-      .then(res => console.log(res.json()))
-      .then(
-        (result) => {
-          setIsLoaded(true);
-          set(result)
-        },
-        (error) => {
-          setIsLoaded(true);
-          setError(error);
-        }
-      )
-  }, [])
-
-/** retrieves total number of users in db */
-
-  async function getUserCount(){
-    const idRes = await axios.get(`${API_URL}users/count`)
-    .then(response => console.log(response))
-    .catch(error => console.log(error));
-    const userCount = await idRes.data[0].count;
     
-    return userCount;
-  }
+    async function getRandomUser() {
+      try {
+        //generates a random id to query db for next possible match  OLD CODE, IGNORE
+        // let userRes = await axios.get(`${DB_API}users/match`);
+        // if(!userRes){
+        //   throw new Error("User does not exist")
+        // }
+        // let randomUser = userRes.data.user;
 
-/** generates a random id to query db for next possible match */
+        setIsLoading(true);
+        //queries randomuser.me for random person 
+        let randomMeRes = await axios.get(`https://randomuser.me/api/?inc=name,location,dob,login,picture&results=1`)
+        let randomUser = randomMeRes.data.results[0];
 
-  async function getRandomUser(userCount){
-    userCount = await getUserCount();
-    let randomId = randomIdFrom(userCount);
-    const nextUser = await axios.get(`${API_URL}users/${randomId}`)
-    .then(response => console.log(response.data))
-    .catch(error => console.log(error));
-    return nextUser;
-  }
-    
-
-  const goForward = function() {
+        setUser(d => [
+          ...d,
+          {
+            id: randomUser.login.id,
+            username: randomUser.login.username,
+            first: randomUser.name.first,
+            last: randomUser.name.last,
+            city: randomUser.location.city,
+            country: randomUser.location.country,
+            age: randomUser.dob.age,
+            src: randomUser.picture.large
+          }
+        ]);
+        setIsLoading(false);
+      } catch(err){
+        alert(err);
+      }
+    }
     getRandomUser();
-    setPeopleIdx(peopleIdx === total - 1 ? 0 : peopleIdx + 1)
-  }
-  const goBack = () => setPeopleIdx(peopleIdx === 0 ? (total - 1) : peopleIdx - 1);
-  
+  }, [setUser]);
 
+  const skipUser = () => console.log("this is skipUser function");
+  const confirmMatch = () => setUser();
 
+  const userToDisplay = user.map(u => (
+    <Card key={u.id} 
+          username={u.username}
+          first={u.first} 
+          last={u.last_name} 
+          city={u.city}
+          country={u.country}
+          age={u.age}
+          src={u.src} />
+  ));
   
     return (
-
+      <>
+        {isLoading ? <h1>Loading data...</h1> : 
         <div>
-          {props.people.map(p => (
-            <Card
-              id={p.id}
-              name={p.name}
-              age={p.age}
-              src={people.src}
-              totalNum={total}
-            />
-          ))}
-          <div>{isLoaded ? person : <h1>Loading...</h1>}</div>
-          <button onClick={goBack} className="genBtn">Skip</button>
-          <button onClick={goForward} className="genBtn">Match</button>
-          <button onClick={getUserCount} className="genBtn">Count</button>
-          <button onClick={getRandomUser} className="genBtn">RandomUser</button>
+          User info: {userToDisplay}
+          <div>
+            <img src={user.src}/>
+            <button className="genBtn" onClick={skipUser}>Skip</button>
+            <button className="genBtn" onClick={confirmMatch}>Match</button> 
+          </div>
         </div>
+        }
+      </>
     );
-}
-
-Carousel.defaultProps = {
-    people: [
-        { id: 1, src:image1, name: "Judy", age: "32"},
-        { id: 2, src:image2, name: "Frank", age: "42"},
-        { id: 3, src:image3, name: "Judy", age: "52"}
-    ]
 }
 
 export default Carousel;

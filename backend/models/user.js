@@ -1,4 +1,4 @@
-/** User class for message.ly */
+/** User class */
 
 const db = require("../db");
 const bcrypt = require("bcrypt");
@@ -71,11 +71,24 @@ class User {
 
     return result.rows;
   }
-  
-  static async count(){
-    const result = await db.query(`SELECT count(*) FROM users`);
 
-    return result.rows;
+ /** Get: random user */
+
+  static async getRandom(){
+    const result = await db.query(
+      `SELECT id,
+              username,
+              first_name,
+              last_name
+      FROM users
+      ORDER BY RANDOM()
+      LIMIT 1`);
+
+    if (!result.rows[0]) {
+      throw new ExpressError(`No such user: ${id}`, 404);
+    }
+
+    return result.rows[0];
   }
 
   /** Get: get user by id

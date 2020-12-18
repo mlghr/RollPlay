@@ -4,12 +4,17 @@
     padding-left: 30px;
 }
 
+.card-head {
+    size: 20px;
+}
+
 .card-text {
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
 .card-image {
     border-radius: 10px;
+    size: 100px;
 }
 
 .genBtn {

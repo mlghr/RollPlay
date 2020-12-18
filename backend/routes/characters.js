@@ -1,6 +1,5 @@
 const Router = require("express").Router;
 const Character = require("../models/character")
-const { ensureLoggedIn, ensureCorrectUser } = require("../middleware/auth");
 
 const router = new Router();
 
@@ -37,10 +36,11 @@ router.post("/new", async (req, res, next) => {
     }
 });
 
+//put not working, try post?
+
 router.put("/:name/edit", async (req, res, next) => {
     try {
-        console.log(req.body.name)
-        const character = await Character.edit(req.body.name);
+        const character = await Character.edit(req.body);
         return res.json({ character });
     } catch (err) {
         return next(err);
