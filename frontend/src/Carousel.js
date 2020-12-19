@@ -5,7 +5,7 @@ import "./Carousel.css";
 
 // const DB_API = process.env.REACT_APP_API_URL || "http://localhost:5000/";
 
-function Carousel(props) {
+function Carousel() {
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState([]);
 
@@ -47,7 +47,7 @@ function Carousel(props) {
   }, [setUser]);
 
   const skipUser = () => console.log("this is skipUser function");
-  const confirmMatch = () => setUser();
+  const confirmMatch = () => setUser([user]);
 
   const userToDisplay = user.map(u => (
     <Card key={u.id} 
