@@ -10,7 +10,8 @@ CREATE TABLE users
     username text NOT NULL,
     password text NOT NULL,
     first_name text NOT NULL,
-    last_name text NOT NULL
+    last_name text NOT NULL,
+    age integer NOT NULL
 );
 
 CREATE TABLE characters
@@ -23,7 +24,19 @@ CREATE TABLE characters
     background text NOT NULL,
     details text,
     is_dummy bool DEFAULT FALSE
+    -- Is this a dummy proflie?
 );
+
+CREATE TABLE matches
+(
+    id SERIAL PRIMARY KEY,
+    u_matching integer FOREIGN KEY (id) REFERENCES users,
+    CONSTRAINT fk_user
+        FOREIGN KEY (u_matching) 
+            REFERENCES users(user_id),
+    is_match bool DEFAULT NULL 
+    -- Null here means that the user is undecided.
+)
 
 INSERT INTO characters (name, age, c_class, race, background, details) VALUES
     ('Jerk', 30, 'Warrior', 'Human', 'Outlander', 'Really interesting backstory'),

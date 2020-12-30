@@ -109,11 +109,18 @@ class User {
         [id]);
 
     if (!result.rows[0]) {
-      throw new ExpressError(`No such user: ${id}`, 404);
+      throw new ExpressError(`No such user with id of ${id}`, 404);
     }
 
     return result.rows[0];
   }
+
+  // static async match(){
+  //   const result = await db.query(
+  //     `INSERT INTO matches`
+  //   )
+  // }
+
 }
 
 

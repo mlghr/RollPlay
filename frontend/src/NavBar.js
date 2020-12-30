@@ -10,13 +10,16 @@ function NavBar() {
           Home
         </NavLink>
         <NavLink className="NavLink" exact to="/users">
-          Users
+          Find Matches
         </NavLink>
         <NavLink className="NavLink" exact to="/auth/login">
           Login
         </NavLink>
         <NavLink className="NavLink" exact to="/auth/register">
           Register
+        </NavLink>
+        <NavLink className="chatroom-link" exact to="/:room-name">
+          Messaging
         </NavLink>
       </nav>
     </div>

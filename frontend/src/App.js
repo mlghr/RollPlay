@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, BrowserRouter, Switch } from "react-router-dom";
+import { Route, BrowserRouter, Switch, Redirect } from "react-router-dom";
 import './App.css';
 import NavBar from "./NavBar";
 
@@ -28,6 +28,8 @@ function App() {
           <Route exact path="/users" component={Carousel}/>
           <Route exact path="/auth/login" component={SignUp}/>
           <Route exact path="/auth/register" component={SignUp}/>
+          <Route exact path="/:room-name" />
+          <Redirect to="/"/>
         </Switch>
       </div>
     </BrowserRouter>

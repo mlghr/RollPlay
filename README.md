@@ -1,4 +1,4 @@
-## Full stack applicaton with API
+## Roll Play - Full stack applicaton with API
 
 ## High level features:
 
@@ -14,22 +14,20 @@ Home - Done (ish). Need to change text/styling - 90%
 Routing set up.
 Sign up / Login form - 0%
 Character creation form/view - 0%
-Chatroom websocket - 0%
 
 # Backend
 
 User model - 100%
 Character model - 100%
-Schema - 90% (match table)
+Schema - 100% (match table)
 Routes - 90% (create match table routes)
 Authorization/authentication middleware - 100%
 Tests - 30%
+Websocket messaging - 0%
 
 # API
 
-Twilio 
-
-How to integrate API with my app
+randomuser.me
 
 # Deployment 
 
