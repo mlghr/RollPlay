@@ -24,19 +24,34 @@ CREATE TABLE characters
     background text NOT NULL,
     details text,
     is_dummy bool DEFAULT FALSE
-    -- Is this a dummy proflie?
+    -- Dummy profiles will be substitued in occasionally if there are very few users
 );
 
-CREATE TABLE matches
-(
+CREATE TABLE evaluations (
     id SERIAL PRIMARY KEY,
-    u_matching integer FOREIGN KEY (id) REFERENCES users,
-    CONSTRAINT fk_user
-        FOREIGN KEY (u_matching) 
-            REFERENCES users(user_id),
-    is_match bool DEFAULT NULL 
-    -- Null here means that the user is undecided.
-)
+    user_evaluating integer,
+    -- you
+    user_evaluated integer,
+    -- other user you are looking at
+    evaluation text DEFAULT 'undecided'
+    -- accepted or rejected
+);
+
+INSERT INTO users (username, password, first_name, last_name, age) VALUES
+    ('ducksarefun', 'ducks', 'Fred',  'fredson', 20),
+    ('ducksarecool', 'ducks', 'Bob',  'bobson', 30),
+    ('ducksaregreat', 'ducks', 'Cindy',  'cindyson', 40),
+    ('ducksarefine', 'ducks', 'LaShaniqua',  'lashaniquason', 50),
+    ('ducksarenotpreferred', 'ducks', 'El toro',  'eltorosen', 60),
+    ('ducksaredumb', 'ducks', 'Chad', 'chadson', 12);
+
+INSERT INTO evaluations (user_evaluating, user_evaluated, evaluation) VALUES
+    (1, 3, 'accepted'),
+    (1, 2, 'undecided'),
+    (2, 3, 'accepted'),
+    (2, 1, 'rejected'),
+    (3, 1, 'accepted'),
+    (3, 2, 'rejected');
 
 INSERT INTO characters (name, age, c_class, race, background, details) VALUES
     ('Jerk', 30, 'Warrior', 'Human', 'Outlander', 'Really interesting backstory'),

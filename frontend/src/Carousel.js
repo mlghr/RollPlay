@@ -3,7 +3,9 @@ import axios from "axios";
 import Card from "./Card";
 import "./Carousel.css";
 
-const DB_API = process.env.REACT_APP_API_URL || "http://localhost:5000/";
+
+const RU_API = "https://randomuser.me/api";
+const DB_API = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
 function Carousel() {
   const [isLoading, setIsLoading] = useState(false);
@@ -40,14 +42,14 @@ function Carousel() {
   }
   
   async function addMatch(){
-    let matchRes = await axios.post(`${DB_API}users/match`);
+    let matchRes = await axios.post(`${DB_API}/users/match`);
     
   }
 
   useEffect(() => {
         //OLD CODE, IGNORE
         //generates a random id to query db for next possible match  
-        // let userRes = await axios.get(`${DB_API}users/match`);
+        // let userRes = await axios.get(`${DB_API}/users/match`);
         // if(!userRes){
         //   throw new Error("User does not exist")
         // }

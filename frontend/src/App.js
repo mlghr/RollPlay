@@ -8,6 +8,7 @@ import NavBar from "./NavBar";
 import Carousel from "./Carousel"
 import Home from "./Home";
 import SignUp from "./SignUp";
+import ChatRoom from "./ChatRoom";
 
 /** Overall blog application:
  *
@@ -28,7 +29,7 @@ function App() {
           <Route exact path="/users" component={Carousel}/>
           <Route exact path="/auth/login" component={SignUp}/>
           <Route exact path="/auth/register" component={SignUp}/>
-          <Route exact path="/:room-name" />
+          <Route exact path="/chat" component={ChatRoom}/>
           <Redirect to="/"/>
         </Switch>
       </div>

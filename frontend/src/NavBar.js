@@ -18,7 +18,7 @@ function NavBar() {
         <NavLink className="NavLink" exact to="/auth/register">
           Register
         </NavLink>
-        <NavLink className="chatroom-link" exact to="/:room-name">
+        <NavLink className="chatroom-link" exact to="/chat/:room-name">
           Messaging
         </NavLink>
       </nav>

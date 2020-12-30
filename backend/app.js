@@ -22,10 +22,12 @@ app.use(authenticateJWT);
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/users");
 const characterRoutes = require("./routes/characters");
+const evaluationRoutes = require("./routes/evaluations";)
 
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/characters", characterRoutes);
+app.use("/evaluations", evaluationRoutes);
 
 app.use(express.static('static/'));
 

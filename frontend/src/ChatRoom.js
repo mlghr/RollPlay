@@ -1,3 +1,8 @@
+import React from 'react';
+import "./ChatRoom.css";
+
+function ChatRoom() {
+  
 /** Client-side of groupchat. */
 
 const urlParts = document.URL.split("/");
@@ -67,3 +72,16 @@ $('form').submit(function (evt) {
   $('#m').val('');
 });
 
+  return (
+    <>
+      <ul id="messages"></ul>
+    
+      <form id="msg-form">
+        <input id="m" autocomplete="on"/>
+        <button>Send</button>
+      </form>
+    </>
+  )
+}
+
+export default ChatRoom;
