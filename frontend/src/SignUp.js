@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./SignUp.css";
 
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000/";
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
 const SignUp = () =>
 {
@@ -27,7 +27,7 @@ const SignUp = () =>
     e.preventDefault();
     const { username, password, first_name, last_name } = formData;
     let res = await axios.post
-      ( `${ API_URL }auth/register`,
+      ( `${ API_URL }/auth/register`,
         {
           username: username,
           password: password,

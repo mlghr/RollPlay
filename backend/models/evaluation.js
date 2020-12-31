@@ -36,7 +36,7 @@ class Evaluation {
     return result.rows[0];
   }      
 
-  static async match(user_evaluating, user_evaluated){
+  static async getMatches(){
     const result = await db.query(
       `SELECT evaluations.user_evaluating 
         FROM evaluations

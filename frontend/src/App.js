@@ -10,12 +10,13 @@ import Home from "./Home";
 import SignUp from "./SignUp";
 import ChatRoom from "./ChatRoom";
 
-/** Overall blog application:
+/** Overall application:
  *
  * - shows header, nav links, and contains routes to:
  *   - new form
  *   - homepage
- *   - individual posts
+ *   - messaging
+ *   - button to start matching
  */
 
 function App() {
@@ -24,13 +25,13 @@ function App() {
       <div className="App container">
         <NavBar />
         <Switch>
-          <Route exact path="/" component={Home}/>
-          <Route exact path="/users/:name" component={Carousel}/>
-          <Route exact path="/users" component={Carousel}/>
-          <Route exact path="/auth/login" component={SignUp}/>
-          <Route exact path="/auth/register" component={SignUp}/>
-          <Route exact path="/chat" component={ChatRoom}/>
-          <Redirect to="/"/>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/users/:name" component={Carousel} />
+          <Route exact path="/users" component={Carousel} />
+          <Route exact path="/auth/login" component={SignUp} />
+          <Route exact path="/auth/register" component={SignUp} />
+          <Route exact path="/chat" component={ChatRoom} />
+          <Redirect to="/" />
         </Switch>
       </div>
     </BrowserRouter>

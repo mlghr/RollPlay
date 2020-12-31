@@ -1,87 +1,26 @@
 import React from 'react';
 import "./ChatRoom.css";
+import { w3cwebsocket as W3CWebSocket } from "websocket";
 
 function ChatRoom() {
-  
-/** Client-side of groupchat. */
 
-const urlParts = document.URL.split("/");
-const roomName = urlParts[urlParts.length - 1];
-const ws = new WebSocket(`ws://localhost:5000/chat/${roomName}`);
+  const [messages, setMessages] = useState([]);
+  const webSocket = useRef(null);
 
+  useEffect(() => {
+      webSocket.current = new W3CWebSocket("ws://localhost:3000");
+      webSocket.current.onmessage = (message) => {
+          setMessages(prev => [...prev, message.data]);
+      };
+  }, []);
 
-const name = prompt("Username?", "Anonymous");
-
-
-/** called when connection opens, sends join info to server. */
-
-ws.onopen = function(evt) {
-  console.log("open", evt);
-
-  let data = {type: "join", name: name};
-  ws.send(JSON.stringify(data));
-};
-
-
-/** called when msg received from server; displays it. */
-
-ws.onmessage = function(evt) {
-  console.log("message", evt);
-
-  let msg = JSON.parse(evt.data);
-  let item;
-
-  if (msg.type === "note") {
-    item = $(`<li><i>${msg.text}</i></li>`);
-  }
-
-  else if (msg.type === "chat") {
-    item = $(`<li><b>${msg.name}: </b>${msg.text}</li>`);
-  }
-
-  else {
-    return console.error(`bad message: ${msg}`);
-  }
-
-  $('#messages').append(item);
-};
-
-
-/** called on error; logs it. */
-
-ws.onerror = function (evt) {
-  console.error(`err ${evt}`);
-};
-
-
-/** called on connection-closed; logs it. */
-
-ws.onclose = function (evt) {
-  console.log("close", evt);
-};
-
-
-/** send message when button pushed. */
-
-$('form').submit(function (evt) {
-  evt.preventDefault();
-
-  let data = {type: "chat", text: $("#m").val()};
-  ws.send(JSON.stringify(data));
-
-  $('#m').val('');
-});
 
   return (
     <>
-      <ul id="messages"></ul>
-    
-      <form id="msg-form">
-        <input id="m" autocomplete="on"/>
-        <button>Send</button>
-      </form>
+      <h1>FUCK</h1>
+      <p>{messages.join(" ")}</p>
     </>
-  )
+  );
 }
 
 export default ChatRoom;

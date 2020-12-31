@@ -22,88 +22,56 @@ app.use(authenticateJWT);
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/users");
 const characterRoutes = require("./routes/characters");
-const evaluationRoutes = require("./routes/evaluations";)
+const evaluationRoutes = require("./routes/evaluations");
 
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/characters", characterRoutes);
 app.use("/evaluations", evaluationRoutes);
 
-app.use(express.static('static/'));
+/** websocket  */
 
-/** Handle websocket chat */
+const webSocketServerPort = 8000;
+const webSocketServer = require('websocket').server;
+const http = require('http');
 
-// allow for app.ws routes for websocket routes
-const wsExpress = require('express-ws')(app);
+//spinning the http and websocket server...
+const server = http.createServer();
+server.listen(webSocketServerPort);
+console.log(`Listening on port ${webSocketServerPort}`);
 
-const ChatUser = require('./ChatUser');
+const wsServer = new webSocketServer({
+  httpServer: server
+})
 
-/** Handle a persistent connection to /chat/[roomName]
- *
- * Note that this is only called *once* per client --- not every time
- * a particular websocket chat is sent.
- *
- * `ws` becomes the socket for the client; it is specific to that visitor.
- * The `ws.send` method is how we'll send messages back to that socket.
- */
+const clients = {};
 
-app.ws('/chat/:roomName', function(ws, req, next) {
-  try {
-    const user = new ChatUser(
-      ws.send.bind(ws), // fn to call to message this user
-      req.params.roomName // name of room for user
-    );
+const getUniqueID = () => {
+  const s4 = () => Math.floor((1 + Math.random()) * 0.10000).toString(16).substring(1);
+  return s4() + s4() + '-' + s4();
+};
 
-    // register handlers for message-received, connection-closed
+wsServer.on('request', function(request){
+  let userID = getUniqueID();
+  console.log((new Date()) + 'received a new connection from origin' + request.origin + '.');
 
-    ws.on('message', function(data) {
-      try {
-        user.handleMessage(data);
-      } catch (err) {
-        console.error(err);
-      }
-    });
+  //can rewrite this to accept only certain origins
+  const connection = request.accept(null, request.origin);
+  clients[userID] = connection;
+  console.log(`connected: ${userID} in ${Object.getOwnPropertyNames(clients)}`);
 
-    ws.on('close', function() {
-      try {
-        user.handleClose();
-      } catch (err) {
-        console.error(err);
-      }
-    });
-  } catch (err) {
-    console.error(err);
-  }
+  connection.on('message', function(message){
+    if(message.type === 'utf8') {
+      console.log('Received message: ', message.utf8Data);
+    }
+
+    //broadcast message to all clients
+    for(key in clients) {
+      clients[key].sendUTF(message.utf8Data);
+      console.log(`sent message to: ${clients[key]}`);
+    }
+  })
 });
-
-/** serve homepage --- just static HTML
- *
- * Allow any roomName to come after homepage --- client JS will find the
- * roomname in the URL.
- *
- * */
-
-app.get('/:roomName', function(req, res, next) {
-  res.sendFile(`${__dirname}/chat.html`);
-});
-
-/** 404 handler */
-
-app.use(function(req, res, next) {
-  const err = new ExpressError("Not Found", 404);
-  return next(err);
-});
-
-/** general error handler */
-
-// app.use(function(err, req, res, next) {
-//   res.status(err.status || 500);
-//   if (process.env.NODE_ENV != "test") console.error(err.stack);
-//   return res.json({
-//     error: err,
-//     message: err.message
-//   });
-// });
 
 app.use(function (err, req, res, next) {
   const status = err.status || 500;

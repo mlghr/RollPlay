@@ -115,12 +115,6 @@ class User {
     return result.rows[0];
   }
 
-  // static async match(){
-  //   const result = await db.query(
-  //     `INSERT INTO matches`
-  //   )
-  // }
-
 }
 
 
