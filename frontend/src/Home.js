@@ -5,7 +5,7 @@ import "./Home.css"
 function Home() {
   return (
     <div>
-      <h1 class="header">Hello</h1>
+      <h1 className="header">Hello</h1>
       <p>
         Welcome to <b>Roll Play</b>, a new way to meet nerds like you
       </p>

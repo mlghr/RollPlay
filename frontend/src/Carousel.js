@@ -17,7 +17,7 @@ function Carousel() {
     try {
       setIsLoading(true);
       //store new user 
-      let randomMeRes = await axios.get(`https://randomuser.me/api/?inc=name,location,dob,login,picture&results=1`)
+      let randomMeRes = await axios.get(`${RU_API}/?inc=name,location,dob,login,picture&results=1`)
       let randomUser = randomMeRes.data.results[0];
 
       //trigger re-render

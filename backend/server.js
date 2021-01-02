@@ -1,6 +1,3 @@
-/** Server startup for Message.ly. */
-
-
 const app = require("./app");
 
 const port = 5000;

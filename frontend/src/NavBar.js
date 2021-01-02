@@ -18,8 +18,8 @@ function NavBar() {
         <NavLink className="NavLink" exact to="/auth/register">
           Register
         </NavLink>
-        <NavLink className="NavLink-Chat" exact to="/chat">
-          Messaging
+        <NavLink className="NavLink-Chat" exact to="/join">
+          Join
         </NavLink>
       </nav>
     </div>

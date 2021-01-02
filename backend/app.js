@@ -4,7 +4,6 @@ const express = require("express");
 const cors = require("cors");
 const { authenticateJWT } = require("./middleware/auth");
 
-const ExpressError = require("./expressError")
 const app = express();
 
 // allow both form-encoded and json body parsing
@@ -16,6 +15,18 @@ app.use(cors());
 
 // get auth token for all routes
 app.use(authenticateJWT);
+
+const http = require('http');
+const socketio = require('socket.io');
+
+const { addUser, removeUser, getUser, getUsersInRoom } = require('./users');
+
+const router = require('./router');
+
+const server = http.createServer(app);
+const io = socketio(server);
+
+app.use(router);
 
 /** routes */
 
@@ -31,44 +42,36 @@ app.use("/evaluations", evaluationRoutes);
 
 /** websocket  */
 
-const webSocketServerPort = 8000;
-const webSocketServer = require('websocket').server;
-const http = require('http');
+io.on('connect', (socket) => {
+  socket.on('join', ({ name, room }, callback) => {
+    const { error, user } = addUser({ id: socket.id, name, room });
 
-//spinning the http and websocket server...
-const server = http.createServer();
-server.listen(webSocketServerPort);
-console.log(`Listening on port ${webSocketServerPort}`);
+    if(error) return callback(error);
 
-const wsServer = new webSocketServer({
-  httpServer: server
-})
+    socket.join(user.room);
 
-const clients = {};
+    socket.emit('message', { user: 'admin', text: `${user.name}, welcome to room ${user.room}.`});
+    socket.broadcast.to(user.room).emit('message', { user: 'admin', text: `${user.name} has joined!` });
 
-const getUniqueID = () => {
-  const s4 = () => Math.floor((1 + Math.random()) * 0.10000).toString(16).substring(1);
-  return s4() + s4() + '-' + s4();
-};
+    io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
 
-wsServer.on('request', function(request){
-  let userID = getUniqueID();
-  console.log((new Date()) + 'received a new connection from origin' + request.origin + '.');
+    callback();
+  });
 
-  //can rewrite this to accept only certain origins
-  const connection = request.accept(null, request.origin);
-  clients[userID] = connection;
-  console.log(`connected: ${userID} in ${Object.getOwnPropertyNames(clients)}`);
+  socket.on('sendMessage', (message, callback) => {
+    const user = getUser(socket.id);
 
-  connection.on('message', function(message){
-    if(message.type === 'utf8') {
-      console.log('Received message: ', message.utf8Data);
-    }
+    io.to(user.room).emit('message', { user: user.name, text: message });
 
-    //broadcast message to all clients
-    for(key in clients) {
-      clients[key].sendUTF(message.utf8Data);
-      console.log(`sent message to: ${clients[key]}`);
+    callback();
+  });
+
+  socket.on('disconnect', () => {
+    const user = removeUser(socket.id);
+
+    if(user) {
+      io.to(user.room).emit('message', { user: 'Admin', text: `${user.name} has left.` });
+      io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room)});
     }
   })
 });
