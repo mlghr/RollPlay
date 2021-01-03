@@ -43,7 +43,7 @@ const SignUp = () =>
 
   return (
     <div className="form-wrapper">
-      <h1 className="heading">Create an account</h1>
+      <h1 className="form-heading">Create an account</h1>
 
       <form onSubmit={handleSubmit}>
         <label htmlFor="username"></label>

@@ -9,13 +9,13 @@ function NavBar() {
         <NavLink className="NavLink-home" exact to="/">
           Home
         </NavLink>
-        <NavLink className="NavLink" exact to="/users">
+        <NavLink className="NavLink" exact to="/match">
           Find Matches
         </NavLink>
-        <NavLink className="NavLink" exact to="/auth/login">
+        <NavLink className="NavLink" exact to="/login">
           Login
         </NavLink>
-        <NavLink className="NavLink" exact to="/auth/register">
+        <NavLink className="NavLink" exact to="/register">
           Register
         </NavLink>
         <NavLink className="NavLink-Chat" exact to="/join">

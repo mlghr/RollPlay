@@ -9,7 +9,7 @@ import Input from './Input';
 
 import './Chat.css';
 
-const ENDPOINT = 'https://localhost:4000';
+const ENDPOINT = 'https://localhost:3000';
 
 let socket;
 

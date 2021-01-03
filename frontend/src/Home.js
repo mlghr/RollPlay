@@ -9,7 +9,7 @@ function Home() {
       <p>
         Welcome to <b>Roll Play</b>, a new way to meet nerds like you
       </p>
-      <Link exact to="/users" className="btn genBtn">Start Matching</Link>
+      <Link exact to="/match" className="btn genBtn">Start Matching</Link>
     </div> 
   );
 }

@@ -41,10 +41,10 @@ function Carousel() {
     }
   }
   
-  async function addMatch(){
-    let matchRes = await axios.post(`${DB_API}/users/match`);
+  // async function addMatch(){
+  //   let matchRes = await axios.post(`${DB_API}/users/match`);
     
-  }
+  // }
 
   useEffect(() => {
         //OLD CODE, IGNORE
