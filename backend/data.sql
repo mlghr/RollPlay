@@ -37,6 +37,8 @@ CREATE TABLE evaluations (
     -- accepted or rejected
 );
 
+--Dummy data
+
 INSERT INTO users (username, password, first_name, last_name, age) VALUES
     ('ducksarefun', 'ducks', 'Fred',  'fredson', 20),
     ('ducksarecool', 'ducks', 'Bob',  'bobson', 30),

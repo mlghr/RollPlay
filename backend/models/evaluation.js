@@ -18,7 +18,11 @@ class Evaluation {
   static async get(id){
     const result = await db.query(
       `SELECT id 
-      FROM evaluations;`)
+      FROM evaluations
+      WHERE id = $1`,
+      [id]);
+
+    return result.rows[0];
   }
 
   static async create(user_evaluating, user_evaluated, evaluation){
@@ -26,8 +30,7 @@ class Evaluation {
       `INSERT INTO evaluations (
         user_evaluating,
         user_evaluated,
-        evaluation
-      )
+        evaluation)
       VALUES ($1, $2, $3)
       RETURNING evaluation`,
       [user_evaluating, user_evaluated, evaluation]

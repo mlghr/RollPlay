@@ -4,9 +4,9 @@ const Evaluation = require("../models/evaluation");
 const router = new Router();
 
 
-/** get list of users.
+/** get list of evaluations.
  *
- * => {users: [{username, first_name, last_name}, ...]}
+ * => {evaluations: [{user_evaluating, user_evaluated}, ...]}
  *
  **/
 router.get("/", async (req, res, next) => {
@@ -19,9 +19,9 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-/** get detail of users.
+/** get detail of evaluation.
  *
- * => {user: {username, first_name, last_name}}
+ * => {evaluation: {user_evaluating, user_evaluated, evaluation}}
  *
  **/
 

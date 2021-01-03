@@ -31,7 +31,7 @@ randomuser.me
 
 # Deployment 
 
-Vercel?
+Vercel
 
 
 
