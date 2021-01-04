@@ -1,7 +1,6 @@
 const app = require("./app");
 
-const port = 6000;
-
-app.listen(port, function () {
-  console.log(`Listening on port ${port}`);
+app.listen(5000, function () {
+  console.log(`Listening on port 5000`);
 });
+

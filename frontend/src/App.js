@@ -9,9 +9,11 @@ import NavBar from "./NavBar";
 
 import Carousel from "./Carousel"
 import Home from "./Home";
-import SignUp from "./SignUp";
+import Register from "./Register";
+import Login from "./Login";
 import Join from './Join';
 import Chat from './Chat';
+
 
 /** Overall application:
  *
@@ -30,8 +32,8 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/match" component={Carousel} />
-          <Route exact path="/login" component={SignUp} />
-          <Route exact path="/register" component={SignUp} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
           <Route path="/join" exact component={Join} />
           <Route path="/chat" component={Chat} />
           <Redirect to="/" />

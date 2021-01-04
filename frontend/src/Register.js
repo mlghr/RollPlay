@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./SignUp.css";
+import "./Register.css";
 
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+const DB_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
-const SignUp = () =>
+const Register = () =>
 {
   const initialState = {
     username: "",
     password: "",
     first_name: "",
     last_name: "",
+    age: 0,
+    game_interests: ""
   }
   const [ formData, setFormData ] = useState( initialState )
   const handleChange = e =>
@@ -25,21 +27,22 @@ const SignUp = () =>
   const handleSubmit = async ( e ) =>
   {
     e.preventDefault();
-    const { username, password, first_name, last_name } = formData;
+    const { username, password, first_name, last_name, age, game_interests } = formData;
     let res = await axios.post
-      ( `${ API_URL }/auth/register`,
+      ( `${ DB_URL }/auth/register`,
         {
           username: username,
           password: password,
           first_name: first_name,
-          last_name: last_name
+          last_name: last_name,
+          age: age,
+          game_interests: game_interests
         } )
           .then(json => {
           console.log(json)
         })
-    console.log( res );
     setFormData( initialState )
-  }
+  };
 
   return (
     <div className="form-wrapper">
@@ -87,6 +90,26 @@ const SignUp = () =>
           onChange={handleChange}
         />
 
+        <label htmlFor="age"></label>
+        <input
+          type="number"
+          placeholder="Age"
+          name="age"
+          id="age"
+          value={formData.age}
+          onChange={handleChange}
+        />
+
+        <label htmlFor="game_interests"></label>
+        <input
+          type="text"
+          placeholder="Game Interests"
+          name="game_interests"
+          id="game_interests"
+          value={formData.game_interests}
+          onChange={handleChange}
+        />
+
         <button className="SignUpBtn" type="submit">Sign up</button>
         <small className="has-account-tag">Already have an account?</small>
       </form>
@@ -94,4 +117,4 @@ const SignUp = () =>
   )
 }
 
-export default SignUp;
+export default Register;

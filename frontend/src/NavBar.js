@@ -15,7 +15,7 @@ function NavBar() {
         <NavLink className="NavLink" exact to="/login">
           Login
         </NavLink>
-        <NavLink className="NavLink" exact to="/register">
+        <NavLink className="NavLink" exact to="/signup">
           Register
         </NavLink>
         <NavLink className="NavLink-Chat" exact to="/join">
