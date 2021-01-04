@@ -6,6 +6,17 @@
 2) Backend
 3) API functionality (http verbs)
 
+# INSTRUCTIONS TO START APP
+
+1) Clone this repo
+2) `cd /rollplay/frontend`
+3) `npm install`
+4) `npm start`
+5) `cd /rollplay/backend`
+6) `npm install`
+7) `nodemon server.js`
+8) Navigate to localhost:3000
+
 # Frontend
 
 Main image carousel UI - 80%
