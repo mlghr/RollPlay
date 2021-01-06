@@ -9,6 +9,7 @@ const DB_API = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
 function Carousel() {
   const [isLoading, setIsLoading] = useState(false);
+  const [isMatch, setIsMatch] = useState(false);
   const [user, setUser] = useState([]);
 
   /** Generates new user from randomuser.me API */
@@ -17,7 +18,7 @@ function Carousel() {
     try {
       setIsLoading(true);
       //store new user 
-      let randomMeRes = await axios.get(`${RU_API}/?inc=name,location,dob,login,picture&results=1`)
+      let randomMeRes = await axios.get(`${RU_API}/?inc=name,location,dob,login,picture,email,id&results=1`);
       let randomUser = randomMeRes.data.results[0];
 
       //trigger re-render
@@ -26,11 +27,14 @@ function Carousel() {
       setUser(d => [
         ...d,
         {
-          id: randomUser.login.id,
+          id: randomUser.login.uuid,
+          username: randomUser.login.username,
+          password: randomUser.login.password,
           first: randomUser.name.first,
           last: randomUser.name.last,
           city: randomUser.location.city,
           country: randomUser.location.country,
+          email: randomUser.email,
           age: randomUser.dob.age,
           src: randomUser.picture.large
         }
@@ -39,6 +43,7 @@ function Carousel() {
     } catch(err){
       alert(err);
     }
+    console.log(user);
   }
   
   // async function addMatch(){
@@ -47,7 +52,7 @@ function Carousel() {
   // }
 
   useEffect(() => {
-        //OLD CODE, IGNORE
+        //OLD CODE - IGNORE
         //generates a random id to query db for next possible match  
         // let userRes = await axios.get(`${DB_API}/users/match`);
         // if(!userRes){
@@ -55,10 +60,16 @@ function Carousel() {
         // }
         // let randomUser = userRes.data.user;
      getRandomUser();
+     
   }, [setUser]);
 
-  const skipUser = () => getRandomUser();
-  const confirmMatch = () => getRandomUser();
+  const skipUser = () => {
+    getRandomUser();
+  }
+  const confirmMatch = () => {
+    setIsMatch(true);
+    getRandomUser();
+  };
 
   const userToDisplay = user.map(u => (
     <Card key={u.id} 

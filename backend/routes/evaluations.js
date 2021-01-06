@@ -35,6 +35,15 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
+router.get("/matches/:id", async (req,res,next) => {
+  try{
+    let evaluation = await Evaluation.getMatches(req.params.id);
+    return res.json({evaluation});
+  } catch(err){
+    return next(err);
+  }
+})
+
 router.post("/create", async(req, res, next) => {
   try {
     let evaluation = await Evaluation.create(req.body);

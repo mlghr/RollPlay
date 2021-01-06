@@ -1,7 +1,6 @@
 import React from "react";
 import { Route, BrowserRouter, Switch, Redirect } from "react-router-dom";
 
-
 import './App.css';
 import NavBar from "./NavBar";
 
@@ -13,6 +12,7 @@ import Register from "./Register";
 import Login from "./Login";
 import Join from './Join';
 import Chat from './Chat';
+import MatchBoard from "./MatchBoard";
 
 
 /** Overall application:
@@ -30,13 +30,14 @@ function App() {
       <div className="App">
         <NavBar />
         <Switch>
-          <Route exact path="/" component={Home} />
+          <Route exact path="/home" component={Home} />
           <Route exact path="/match" component={Carousel} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
-          <Route path="/join" exact component={Join} />
+          <Route exact path="/matchboard" component={MatchBoard}/>
+          <Route path="/" exact component={Join} />
           <Route path="/chat" component={Chat} />
-          <Redirect to="/" />
+          <Redirect to="/home" />
         </Switch>
       </div>
     </BrowserRouter>

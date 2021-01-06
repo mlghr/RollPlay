@@ -15,7 +15,7 @@ class User {
    *    {username, password, first_name, last_name}
    */
 
-  static async register({username, password, first_name, last_name, age, game_interests}) {
+  static async register({username, password, first_name, last_name, email, age, game_interests}) {
     let hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
     const result = await db.query(
         `INSERT INTO users (
@@ -23,12 +23,13 @@ class User {
               password,
               first_name,
               last_name,
+              email,
               age,
               game_interests
               )
-            VALUES ($1, $2, $3, $4, $5, $6)
+            VALUES ($1, $2, $3, $4, $5, $6, $7)
             RETURNING username, first_name, last_name`,
-        [username, hashedPassword, first_name, last_name, age, game_interests]
+        [username, hashedPassword, first_name, last_name, email, age, game_interests]
     );
     return result.rows[0];
   }
@@ -68,6 +69,7 @@ class User {
                 username,
                 first_name,
                 last_name,
+                email,
                 age,
                 game_interests
             FROM users
@@ -84,6 +86,7 @@ class User {
               username,
               first_name,
               last_name,
+              email,
               age,
               game_interests
       FROM users

@@ -9,18 +9,16 @@ const ExpressError = require("../expressError");
 
 /** login: {username, password} => {token} */
 
-router.post("/login", async (req, res, next) => {
+router.post("/login", async function (req, res, next) {
   try {
     let {username, password} = req.body;
     if (await User.authenticate(username, password)) {
       let token = jwt.sign({username}, SECRET_KEY);
-      User.updateLoginTimestamp(username);
-      return res.json({token});
+      return res.json({username, token});
     } else {
       throw new ExpressError("Invalid username/password", 400);
     }
   }
-
   catch (err) {
     return next(err);
   }
@@ -28,14 +26,13 @@ router.post("/login", async (req, res, next) => {
 
 /** register user: registers, logs in, and returns token.
  *
- * {username, password, first_name, last_name, phone} => {token}.
+ * {username, password, first_name, last_name} => {token}.
  */
 
-router.post("/register", async (req, res, next) => {
+router.post("/register", async function (req, res, next) {
   try {
-    let {username} = await User.register(req.body);
+    let { username } = await User.register(req.body);
     let token = jwt.sign({username}, SECRET_KEY);
-    // User.updateLoginTimestamp(username);
     return res.json({token});
   }
 

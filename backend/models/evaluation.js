@@ -18,6 +18,9 @@ class Evaluation {
   static async get(id){
     const result = await db.query(
       `SELECT id 
+              user_evaluating,
+              user_evaluated,
+              evaluation
       FROM evaluations
       WHERE id = $1`,
       [id]);
@@ -39,7 +42,7 @@ class Evaluation {
     return result.rows[0];
   }      
 
-  static async getMatches(){
+  static async getMatches(user_evaluating){
     const result = await db.query(
       `SELECT evaluations.user_evaluating 
         FROM evaluations

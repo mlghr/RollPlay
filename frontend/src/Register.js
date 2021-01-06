@@ -11,6 +11,7 @@ const Register = () =>
     password: "",
     first_name: "",
     last_name: "",
+    email: "",
     age: 0,
     game_interests: ""
   }
@@ -27,7 +28,7 @@ const Register = () =>
   const handleSubmit = async ( e ) =>
   {
     e.preventDefault();
-    const { username, password, first_name, last_name, age, game_interests } = formData;
+    const { username, password, first_name, last_name, email, age, game_interests } = formData;
     let res = await axios.post
       ( `${ DB_URL }/auth/register`,
         {
@@ -35,6 +36,7 @@ const Register = () =>
           password: password,
           first_name: first_name,
           last_name: last_name,
+          email: email,
           age: age,
           game_interests: game_interests
         } )
@@ -97,6 +99,16 @@ const Register = () =>
           name="age"
           id="age"
           value={formData.age}
+          onChange={handleChange}
+        />
+
+        <label htmlFor="email"></label>
+        <input
+          type="email"
+          placeholder="Email"
+          name="email"
+          id="email"
+          value={formData.email}
           onChange={handleChange}
         />
 

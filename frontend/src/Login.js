@@ -9,8 +9,6 @@ const Login = () =>
   const initialState = {
     username: "",
     password: "",
-    first_name: "",
-    last_name: "",
   }
   const [ formData, setFormData ] = useState( initialState );
 

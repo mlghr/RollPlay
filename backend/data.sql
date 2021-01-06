@@ -11,6 +11,7 @@ CREATE TABLE users
     password text NOT NULL,
     first_name text NOT NULL,
     last_name text NOT NULL,
+    email text,
     age integer,
     game_interests text
 );
@@ -40,13 +41,13 @@ CREATE TABLE evaluations (
 
 --Dummy data
 
-INSERT INTO users (username, password, first_name, last_name, age, game_interests) VALUES
-    ('ducksarefun', 'ducks', 'Fred',  'fredson', 20, 'Chess, checkers.'),
-    ('ducksarecool', 'ducks', 'Bob',  'bobson', 30, 'Any board games!'),
-    ('ducksaregreat', 'ducks', 'Cindy',  'cindyson', 40, 'Mostly video games.'),
-    ('ducksarefine', 'ducks', 'LaShaniqua',  'lashaniquason', 50, 'Anything you want to play.'),
-    ('ducksarenotpreferred', 'ducks', 'El toro',  'eltorosen', 60, 'I dont like games, not sure why I signed up.'),
-    ('ducksaredumb', 'ducks', 'Chad', 'chadson', 12, 'SPORTS GAMES');
+INSERT INTO users (username, password, first_name, last_name, email, age, game_interests) VALUES
+    ('ducksarefun', 'ducks', 'Fred',  'fredson', 'thing@stuff.com', 20, 'Chess, checkers.'),
+    ('ducksarecool', 'ducks', 'Bob',  'bobson', 'thing@stuff.com', 30, 'Any board games!'),
+    ('ducksaregreat', 'ducks', 'Cindy',  'cindyson', 'thing@stuff.com', 40, 'Mostly video games.'),
+    ('ducksarefine', 'ducks', 'LaShaniqua',  'lashaniquason', 'thing@stuff.com', 50, 'Anything you want to play.'),
+    ('ducksarenotpreferred', 'ducks', 'El toro',  'eltorosen', 'thing@stuff.com', 60, 'I dont like games, not sure why I signed up.'),
+    ('ducksaredumb', 'ducks', 'Chad', 'chadson', 'thing@stuff.com', 12, 'SPORTS GAMES');
 
 INSERT INTO evaluations (user_evaluating, user_evaluated, evaluation) VALUES
     (1, 3, 'accepted'),
