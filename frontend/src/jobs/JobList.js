@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Search from "../common/SearchForm";
+import Search from "../shared/SearchForm";
 import JoblyApi from "../api/api";
 import JobCardList from "./JobCardList";
-import LoadingSpinner from "../common/LoadingSpinner";
+import LoadingSpinner from "../shared/LoadingSpinner";
 
 /** Show page with list of jobs.
  *

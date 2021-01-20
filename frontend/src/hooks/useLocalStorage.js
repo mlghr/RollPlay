@@ -12,7 +12,7 @@ import { useState, useEffect } from "react";
  * To the component, this just acts like state that is also synced to/from
  * localStorage::
  *
- *   const [myThing, setMyThing] = useLocalStorage("myThing")
+ *   const [thing, setThing] = useLocalStorage("thing")
  */
 
 function useLocalStorage(key, firstValue = null) {

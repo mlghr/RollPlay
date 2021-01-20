@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import Alert from "../common/Alert";
+import Alert from "../shared/Alert";
 import JoblyApi from "../api/api";
 import UserContext from "../auth/UserContext";
 
@@ -31,9 +31,9 @@ function ProfileForm() {
   });
   const [formErrors, setFormErrors] = useState([]);
 
+  // const [saveConfirmed, setSaveConfirmed] = useState(false);
   // switch to use our fancy limited-time-display message hook
-  const [saveConfirmed, setSaveConfirmed] = useState(false);
-  // const [saveConfirmed, setSaveConfirmed] = useTimedMessage()
+  const [saveConfirmed, setSaveConfirmed] = useTimedMessage();
 
   console.debug(
       "ProfileForm",
@@ -138,14 +138,9 @@ function ProfileForm() {
                 />
               </div>
 
-              {formErrors.length
-                  ? <Alert type="danger" messages={formErrors} />
-                  : null}
+              {formErrors.length ? <Alert type="danger" messages={formErrors} /> : null}
 
-              {saveConfirmed
-                  ?
-                  <Alert type="success" messages={["Updated successfully."]} />
-                  : null}
+              {saveConfirmed ? <Alert type="success" messages={["Updated successfully."]} /> : null}
 
               <button
                   className="btn btn-primary btn-block mt-4"

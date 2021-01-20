@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import useLocalStorage from "./hooks/useLocalStorage";
 import Navigation from "./routes-nav/Navigation";
 import Routes from "./routes-nav/Routes";
-import LoadingSpinner from "./common/LoadingSpinner";
+import LoadingSpinner from "./shared/LoadingSpinner";
 import JoblyApi from "./api/api";
 import UserContext from "./auth/UserContext";
 import jwt from "jsonwebtoken";
@@ -13,17 +13,12 @@ export const TOKEN_STORAGE_ID = "jobly-token";
 
 /** Jobly application.
  *
- * - infoLoaded: has user data been pulled from API?
- *   (this manages spinner for "loading...")
+ * - currentUser: user obj from API. Is user logged in? Preserved through context.
  *
- * - currentUser: user obj from API. This becomes the canonical way to tell
- *   if someone is logged in. This is passed around via context throughout app.
- *
- * - token: for logged in users, this is their authentication JWT.
+ * - token: for logged in users, JWT.
  *   Is required to be set for most API calls. This is initially read from
  *   localStorage and synced to there via the useLocalStorage hook.
- *
- * App -> Routes
+ * 
  */
 
 
