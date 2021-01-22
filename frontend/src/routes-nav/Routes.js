@@ -8,6 +8,7 @@ import LoginForm from "../auth/LoginForm";
 import ProfileForm from "../profiles/ProfileForm";
 import SignupForm from "../auth/SignupForm";
 import PrivateRoute from "./PrivateRoute";
+import MatchCarousel from "../match/MatchCarousel";
 
 /** Site-wide routes.
  *
@@ -39,6 +40,10 @@ function Routes({ login, signup }) {
           <Route exact path="/signup">
             <SignupForm signup={signup} />
           </Route>
+
+          <PrivateRoute exact path="/match">
+            <MatchCarousel />
+          </PrivateRoute>
 
           <PrivateRoute exact path="/companies">
             <CompanyList />

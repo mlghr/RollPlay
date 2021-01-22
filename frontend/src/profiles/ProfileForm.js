@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import Alert from "../shared/Alert";
-import JoblyApi from "../api/api";
+import RollPlayApi from "../api/api";
 import UserContext from "../auth/UserContext";
 
 // eslint-disable-next-line
@@ -65,7 +65,7 @@ function ProfileForm() {
     let updatedUser;
 
     try {
-      updatedUser = await JoblyApi.saveProfile(username, profileData);
+      updatedUser = await RollPlayApi.saveProfile(username, profileData);
     } catch (errors) {
       debugger;
       setFormErrors(errors);

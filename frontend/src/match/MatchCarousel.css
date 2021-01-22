@@ -1,18 +1,9 @@
-.LoadingSpinner {
-  margin: 200px auto 0 auto;
-  color: tomato;
-  font-size: 24pt;
-  font-weight: bold;
-  text-align: center;
-}
-
 .loader {
   border: 16px solid #f3f3f3; /* Light grey */
   border-top: 16px solid #3498db; /* Blue */
   border-radius: 50%;
   width: 120px;
   height: 120px;
-  text-align: center;
   animation: spin 0.33s linear infinite;
 }
 

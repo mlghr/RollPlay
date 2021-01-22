@@ -19,8 +19,8 @@ function Navigation({ logout }) {
     return (
         <ul className="navbar-nav ml-auto">
           <li className="nav-item mr-4">
-            <NavLink className="nav-link" to="/companies">
-              Companies
+            <NavLink className="nav-link" to="/match">
+              Matching
             </NavLink>
           </li>
           <li className="nav-item mr-4">
@@ -60,9 +60,9 @@ function Navigation({ logout }) {
   }
 
   return (
-      <nav className="Navigation navbar navbar-expand-md">
+      <nav className="Navigation navbar navbar-expand-md pb-3">
         <Link className="navbar-brand" to="/">
-          Jobly
+          Roll Play
         </Link>
         {currentUser ? loggedInNav() : loggedOutNav()}
       </nav>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import JoblyApi from "../api/api";
+import RollPlayApi from "../api/api";
 import JobCardList from "../jobs/JobCardList";
 import LoadingSpinner from "../shared/LoadingSpinner";
 
@@ -21,7 +21,7 @@ function CompanyDetail() {
 
   useEffect(function getCompanyAndJobsForUser() {
     async function getCompany() {
-      setCompany(await JoblyApi.getCompany(handle));
+      setCompany(await RollPlayApi.getCompany(handle));
     }
 
     getCompany();

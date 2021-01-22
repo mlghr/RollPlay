@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
+const RU_API = "https://randomuser.me/api";
 
 /** API Class.
  *
@@ -10,7 +11,7 @@ const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
  *
  */
 
-class JoblyApi {
+class RollPlayApi {
   // the token for interactive with the API will be stored here.
   static token;
 
@@ -18,7 +19,7 @@ class JoblyApi {
     console.debug("API Call:", endpoint, data, method);
 
     const url = `${BASE_URL}/${endpoint}`;
-    const headers = { Authorization: `Bearer ${JoblyApi.token}` };
+    const headers = { Authorization: `Bearer ${RollPlayApi.token}` };
     const params = (method === "get")
         ? data
         : {};
@@ -39,6 +40,13 @@ class JoblyApi {
   static async getCurrentUser(username) {
     let res = await this.request(`users/${username}`);
     return res.user;
+  }
+
+  /** Returns a random user from randomuser.me API. Can change URL params for specific information on user. */
+
+  static async getRandomUserDotMe(){
+    let res = await axios.get(`${RU_API}/?inc=name,location,dob,login,picture,email,id&results=1`);
+    return res.data.results[0];
   }
 
   /** Get companies (filtered by name if not undefined) */
@@ -91,4 +99,4 @@ class JoblyApi {
 }
 
 
-export default JoblyApi;
+export default RollPlayApi;
