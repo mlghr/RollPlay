@@ -1,0 +1,12 @@
+h1 {
+  font-size: 100px;
+}
+
+.genBtn {
+  background-color: #F6AE2D;
+  color:black;
+}
+
+.genBtn:hover {
+  background-color: gold;
+}
