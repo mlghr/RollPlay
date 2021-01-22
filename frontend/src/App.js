@@ -4,7 +4,7 @@ import useLocalStorage from "./hooks/useLocalStorage";
 import Navigation from "./routes-nav/Navigation";
 import Routes from "./routes-nav/Routes";
 import LoadingSpinner from "./shared/LoadingSpinner";
-import RollPlayApi from "./api/api";
+import JoblyApi from "./api/api";
 import UserContext from "./auth/UserContext";
 import jwt from "jsonwebtoken";
 
@@ -47,8 +47,8 @@ function App() {
         try {
           let { username } = jwt.decode(token);
           // put the token on the Api class so it can use it to call the API.
-          RollPlayApi.token = token;
-          let currentUser = await RollPlayApi.getCurrentUser(username);
+          JoblyApi.token = token;
+          let currentUser = await JoblyApi.getCurrentUser(username);
           setCurrentUser(currentUser);
           setApplicationIds(new Set(currentUser.applications));
         } catch (err) {
@@ -80,7 +80,7 @@ function App() {
    */
   async function signup(signupData) {
     try {
-      let token = await RollPlayApi.signup(signupData);
+      let token = await JoblyApi.signup(signupData);
       setToken(token);
       return { success: true };
     } catch (errors) {
@@ -95,7 +95,7 @@ function App() {
    */
   async function login(loginData) {
     try {
-      let token = await RollPlayApi.login(loginData);
+      let token = await JoblyApi.login(loginData);
       setToken(token);
       return { success: true };
     } catch (errors) {
@@ -112,7 +112,7 @@ function App() {
   /** Apply to a job: make API call and update set of application IDs. */
   function applyToJob(id) {
     if (hasAppliedToJob(id)) return;
-    RollPlayApi.applyToJob(currentUser.username, id);
+    JoblyApi.applyToJob(currentUser.username, id);
     setApplicationIds(new Set([...applicationIds, id]));
   }
 
