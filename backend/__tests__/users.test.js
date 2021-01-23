@@ -18,14 +18,14 @@ describe("Test User class", function () {
 
   test("can register", async function () {
     let u = await User.register({
-      username: "joel",
+      username: "bob",
       password: "password",
-      first_name: "Joel",
-      last_name: "Burton",
+      first_name: "bob",
+      last_name: "bobby",
       phone: "+14155551212",
     });
 
-    expect(u.username).toBe("joel");
+    expect(u.username).toBe("bob");
     expect(u.password).not.toBe(undefined);
   });
 

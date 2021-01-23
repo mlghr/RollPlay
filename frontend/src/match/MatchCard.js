@@ -1,9 +1,10 @@
 import React from "react";
-import "./Card.css";
+import "./MatchCard.css";
 /** Card component that displays user profile information to inform matching system*/ 
 
-function Card ({src, first, last, city, country, age}) {
+function MatchCard ({src, first, last, city, country, age}) {
     return (
+
     <div className="flip-container">
         <div className="flip-card" draggable="true">
             <div className="flip-card-inner">
@@ -24,4 +25,4 @@ function Card ({src, first, last, city, country, age}) {
 
 
 
-export default Card; 
+export default MatchCard; 
