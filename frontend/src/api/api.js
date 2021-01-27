@@ -56,10 +56,12 @@ class RollplayApi {
     return randomUser;
   }
 
+  /** retrieve random user from DB */
+
   static async getRandomUser(){
-    let res = await axios.get(`${BASE_URL}/users/random`)
-    console.log(res);
-    return res;
+    let res = await axios.get(`users/random`);
+
+    return res.usernmae;
   }
 
   /** Create new match for a user --> args are user viewing profiles and the profile the user is viewing */
@@ -72,32 +74,6 @@ class RollplayApi {
   /** get random user from database */
 
 
-  /** Get companies (filtered by name if not undefined) */
-
-  static async getCompanies(name) {
-    let res = await this.request("companies", { name });
-    return res.companies;
-  }
-
-  /** Get details on a company by handle. */
-
-  static async getCompany(handle) {
-    let res = await this.request(`companies/${handle}`);
-    return res.company;
-  }
-
-  /** Get list of jobs (filtered by title if not undefined) */
-
-  static async getJobs(title) {
-    let res = await this.request("jobs", { title });
-    return res.jobs;
-  }
-
-  /** Apply to a job */
-
-  static async applyToJob(username, id) {
-    await this.request(`users/${username}/jobs/${id}`, {}, "post");
-  }
 
   /** Get token for login from username, password. */
 

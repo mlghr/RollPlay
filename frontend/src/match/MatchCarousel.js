@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import MatchCard from "./MatchCard";
+import LoadingSpinner from "../shared/LoadingSpinner";
 
 import RollplayApi from "../api/api";
 
@@ -17,7 +18,7 @@ function MatchCarousel() {
       setIsLoading(true);
 
       let randomUser = await RollplayApi.getUserRandomMe();
-      let otherUser = await RollplayApi.getRandomUser();
+      let otherUser = await RollplayApi.getRandomUser(); 
       console.log(otherUser);
       //trigger re-render
       setUser([]);
@@ -101,7 +102,7 @@ function MatchCarousel() {
         {isLoading ? 
         <div className="container text-center">
           <div className="lead">Not loading? Try refreshing the page</div>
-          <div className="loader"></div>
+          <LoadingSpinner/>
         </div>
          : 
         <div style={{textAlign: "center", fontFamily: "Lucida Sans"}}>

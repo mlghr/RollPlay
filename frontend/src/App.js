@@ -24,7 +24,6 @@ export const TOKEN_STORAGE_ID = "rollplay-token";
 
 function App() {
   const [infoLoaded, setInfoLoaded] = useState(false);
-  const [applicationIds, setApplicationIds] = useState(new Set([]));
   const [currentUser, setCurrentUser] = useState(null);
   const [token, setToken] = useLocalStorage(TOKEN_STORAGE_ID);
 
@@ -50,7 +49,6 @@ function App() {
           RollplayApi.token = token;
           let currentUser = await RollplayApi.getCurrentUser(username);
           setCurrentUser(currentUser);
-          setApplicationIds(new Set(currentUser.applications));
         } catch (err) {
           console.error("App loadUserInfo: problem loading", err);
           setCurrentUser(null);
@@ -101,24 +99,12 @@ function App() {
     }
   }
 
-  /** Checks if a job has been applied for. */
-  function hasAppliedToJob(id) {
-    return applicationIds.has(id);
-  }
-
-  /** Apply to a job: make API call and update set of application IDs. */
-  function applyToJob(id) {
-    if (hasAppliedToJob(id)) return;
-    RollplayApi.applyToJob(currentUser.username, id);
-    setApplicationIds(new Set([...applicationIds, id]));
-  }
-
   if (!infoLoaded) return <LoadingSpinner />;
 
   return (
       <BrowserRouter>
         <UserContext.Provider
-            value={{ currentUser, setCurrentUser, hasAppliedToJob, applyToJob }}>
+            value={{ currentUser, setCurrentUser}}>
           <div className="App">
             <Navigation logout={logout} />
             <Routes login={login} signup={signup} />
