@@ -1,3 +1,19 @@
+-- both test users have the password "password"
+
+INSERT INTO users (username, password, first_name, last_name, email, is_admin)
+VALUES ('testuser',
+        '$2b$12$AZH7virni5jlTTiGgEg4zu3lSvAw68qVEfSIOjJ3RqtbJbdW/Oi5q',
+        'Test',
+        'User',
+        'me@me.com',
+        FALSE),
+       ('testadmin',
+        '$2b$12$AZH7virni5jlTTiGgEg4zu3lSvAw68qVEfSIOjJ3RqtbJbdW/Oi5q',
+        'Test',
+        'Admin!',
+        'me@me.com',
+        TRUE);
+
 INSERT INTO evaluations (user_evaluating, user_evaluated, evaluation) VALUES (1, 2, accepted);
 INSERT INTO evaluations (user_evaluating, user_evaluated, evaluation) VALUES (2, 3, rejected);
 INSERT INTO evaluations (user_evaluating, user_evaluated, evaluation) VALUES (3, 4, accepted);
