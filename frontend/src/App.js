@@ -60,7 +60,7 @@ function App() {
     }
 
     // set infoLoaded to false while async getCurrentUser runs; once the
-    // data is fetched (or even if an error happens!), this will be set back
+    // data is fetched, this will be set back
     // to false to control the spinner.
     setInfoLoaded(false);
     getCurrentUser();
@@ -89,10 +89,7 @@ function App() {
     }
   }
 
-  /** Handles site-wide login.
-   *
-   * Make sure you await this function and check its return value!
-   */
+  /** Handles site-wide login. */
   async function login(loginData) {
     try {
       let token = await RollplayApi.login(loginData);

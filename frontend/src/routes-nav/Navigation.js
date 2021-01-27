@@ -19,6 +19,11 @@ function Navigation({ logout }) {
     return (
         <ul className="navbar-nav ml-auto">
           <li className="nav-item mr-4">
+            <NavLink className="nav-link" to="/match">
+              Match
+            </NavLink>
+          </li>
+          <li className="nav-item mr-4">
             <NavLink className="nav-link" to="/companies">
               Companies
             </NavLink>
@@ -35,7 +40,7 @@ function Navigation({ logout }) {
           </li>
           <li className="nav-item">
             <Link className="nav-link" to="/" onClick={logout}>
-              Log out {currentUser.first_name || currentUser.username}
+              Log out 
             </Link>
           </li>
         </ul>

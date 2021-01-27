@@ -27,8 +27,8 @@ app.use(authenticateJWT);
 app.use("/auth", authRoutes);
 app.use("/companies", companiesRoutes);
 app.use("/users", usersRoutes);
-app.use("./evaluations", evaluationsRoutes);
-app.use("./characters", charactersRoutes);
+app.use("/evaluations", evaluationsRoutes);
+app.use("/characters", charactersRoutes);
 app.use("/jobs", jobsRoutes);
 
 

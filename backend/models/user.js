@@ -148,6 +148,24 @@ class User {
     return user;
   }
 
+  /** Return random user from DB */
+
+  static async getRandom(){
+    const result = await db.query(
+      `SELECT username,
+              first_name,
+              last_name
+      FROM users
+      ORDER BY RANDOM()
+      LIMIT 1`);
+
+    if (!result.rows[0]) {
+      throw new ExpressError(`No such user: ${id}`, 404);
+    }
+
+    return result.rows[0];
+  }
+
   /** Update user data with `data`.
    *
    * This is a "partial update" --- it's fine if data doesn't contain

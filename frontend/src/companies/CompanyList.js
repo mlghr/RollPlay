@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import SearchForm from "../shared/SearchForm";
-import JoblyApi from "../api/api";
+import RollplayApi from "../api/api";
 import CompanyCard from "./CompanyCard";
 import LoadingSpinner from "../shared/LoadingSpinner";
 
@@ -26,7 +26,7 @@ function CompanyList() {
 
   /** Triggered by search form submit; reloads companies. */
   async function search(name) {
-    let companies = await JoblyApi.getCompanies(name);
+    let companies = await RollplayApi.getCompanies(name);
     setCompanies(companies);
   }
 

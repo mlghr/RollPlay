@@ -67,8 +67,8 @@ function ProfileForm() {
     try {
       updatedUser = await RollplayApi.saveProfile(username, profileData);
     } catch (errors) {
-      debugger;
       setFormErrors(errors);
+      console.debug(errors);
       return;
     }
 

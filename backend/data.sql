@@ -26,17 +26,7 @@ CREATE TABLE characters
     background text NOT NULL,
     details text,
     is_dummy bool DEFAULT FALSE
-    -- Dummy profiles will be substitued in occasionally if there are very few users
-);
-
-CREATE TABLE evaluations (
-    id SERIAL PRIMARY KEY,
-    user_evaluating integer,
-    -- you
-    user_evaluated integer,
-    -- other user you are looking at
-    evaluation text DEFAULT 'undecided'
-    -- accepted or rejected
+    -- Dummy profiles will be substitued in if there are very few users
 );
 
 --Dummy data

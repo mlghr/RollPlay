@@ -75,6 +75,7 @@ function SignupForm({ signup }) {
                       name="password"
                       className="form-control"
                       value={formData.password}
+                      autoComplete="new-password"
                       onChange={handleChange}
                   />
                 </div>
@@ -86,6 +87,7 @@ function SignupForm({ signup }) {
                       className="form-control"
                       value={formData.firstName}
                       onChange={handleChange}
+                      autoComplete="given-name"
                   />
                 </div>
                 <div className="form-group">
@@ -95,6 +97,7 @@ function SignupForm({ signup }) {
                       className="form-control"
                       value={formData.lastName}
                       onChange={handleChange}
+                      autoComplete="family-name"
                   />
                 </div>
                 <div className="form-group">
@@ -105,6 +108,7 @@ function SignupForm({ signup }) {
                       className="form-control"
                       value={formData.email}
                       onChange={handleChange}
+                      autoComplete="email"
                   />
                 </div>
 
