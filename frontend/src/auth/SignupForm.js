@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import Alert from "../shared/Alert";
 
 /** Signup form.
@@ -14,7 +13,6 @@ import Alert from "../shared/Alert";
  */
 
 function SignupForm({ signup }) {
-  const history = useHistory();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -40,7 +38,7 @@ function SignupForm({ signup }) {
     evt.preventDefault();
     let result = await signup(formData);
     if (result.success) {
-      history.push("/companies");
+      console.log('sign up success')
     } else {
       setFormErrors(result.errors);
     }

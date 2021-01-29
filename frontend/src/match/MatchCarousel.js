@@ -18,8 +18,8 @@ function MatchCarousel() {
       setIsLoading(true);
 
       let randomUser = await RollplayApi.getUserRandomMe();
-      let otherUser = await RollplayApi.getRandomUser(); 
-      console.log(otherUser);
+      // let otherUser = await RollplayApi.getRandomUser(); 
+      // console.log(otherUser);
       //trigger re-render
       setUser([]);
 
@@ -80,8 +80,13 @@ function MatchCarousel() {
     
   // }, [setUser]);
 
+  async function callRandom () {
+    let res = await RollplayApi.getRandomUser();
+    console.log(res);
+  }
+
   const skipUser = () => {
-    getNewUser();
+    callRandom();
   }
   const matchUser = () => {
     getNewUser();

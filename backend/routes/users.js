@@ -78,9 +78,10 @@ router.get("/:username", ensureCorrectUserOrAdmin, async function (req, res, nex
 
 /** Returns a random user from DB */
 
-router.get("/random", ensureCorrectUserOrAdmin, async (req, res, next) => {
+router.get("/random", async (req, res, next) => {
   try {
     let user = await User.getRandom();
+    console.log(user);
     return res.json({user});
   }
   catch (err) {

@@ -21,11 +21,13 @@ function Homepage() {
         <div className="container text-center">
           <h1 className="mb-4 font-weight-bold">Roll Play</h1>
           <p className="lead">Meet gamers on your terms.</p>
-          <Link to="/match" className="btn btn-primary">Find Gamers</Link>
           {currentUser
-              ? <h2>
-                Welcome Back, {currentUser.firstName || currentUser.username}!
-              </h2>
+              ? <div className="container">
+                  <h2>
+                  Welcome Back, {currentUser.firstName || currentUser.username}!
+                  </h2>
+                  <Link to="/match" className="btn btn-primary">Find Gamers</Link>
+                </div> 
               : (
                   <p>
                     <Link className="btn btn-primary font-weight-bold mr-3"

@@ -10,14 +10,14 @@ const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
  */
 
 class RollplayApi {
-  // the token for interacting with the API will be stored here.
+  // token is stored here
   static token;
 
   static async request(endpoint, data = {}, method = "get") {
     console.debug("API Call:", endpoint, data, method);
 
     const url = `${BASE_URL}/${endpoint}`;
-    const headers = { Authorization: `Bearer ${RollplayApi.token}` };
+    const headers = { Authorization: `Token: ${RollplayApi.token}` };
     const params = (method === "get")
         ? data
         : {};
@@ -59,9 +59,9 @@ class RollplayApi {
   /** retrieve random user from DB */
 
   static async getRandomUser(){
-    let res = await axios.get(`users/random`);
+    let res = await this.request(`users/random`);
 
-    return res.usernmae;
+    return res;
   }
 
   /** Create new match for a user --> args are user viewing profiles and the profile the user is viewing */
