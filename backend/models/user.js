@@ -153,7 +153,7 @@ class User {
       LIMIT 1`);
 
     if (!result.rows[0]) {
-      throw new ExpressError(`No such user: ${id}`, 404);
+      throw new ExpressError(`No such user`, 404);
     }
 
     return result.rows[0];

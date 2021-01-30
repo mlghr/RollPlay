@@ -25,9 +25,9 @@ router.get("/", async (req, res, next) => {
  *
  **/
 
-router.get("/:id", async (req, res, next) => {
+router.get("/:username", async (req, res, next) => {
   try {
-    let evaluation = await Evaluation.get(req.params.id);
+    let evaluation = await Evaluation.get(req.params.username);
     return res.json({evaluation});
   }
   catch (err) {
@@ -35,9 +35,9 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-router.get("/matches/:id", async (req,res,next) => {
+router.get("/matches/:username", async (req,res,next) => {
   try{
-    let evaluation = await Evaluation.getMatches(req.params.id);
+    let evaluation = await Evaluation.getMatches(req.params.username);
     return res.json({evaluation});
   } catch(err){
     return next(err);

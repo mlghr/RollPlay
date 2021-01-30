@@ -10,14 +10,14 @@ const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
  */
 
 class RollplayApi {
-  // token is stored here
+  // the token for interacting with the API will be stored here.
   static token;
 
   static async request(endpoint, data = {}, method = "get") {
     console.debug("API Call:", endpoint, data, method);
 
     const url = `${BASE_URL}/${endpoint}`;
-    const headers = { Authorization: `Token: ${RollplayApi.token}` };
+    const headers = { Authorization: `Bearer ${RollplayApi.token}` };
     const params = (method === "get")
         ? data
         : {};
@@ -40,13 +40,6 @@ class RollplayApi {
     return res.user;
   }
 
-  /** returns all of user's matches (evaluation == 'accepted') */
-
-  static async getUserMatches(username) {
-    let res = await this.request(`evaluations/${username}`);
-    return res;
-  }
-
   /** Get random user from randomuser.me API */
   static async getUserRandomMe(){ 
     // The information returned can be altered in the params if needed
@@ -64,6 +57,8 @@ class RollplayApi {
     return res;
   }
 
+  //EVALUATION REQUESTS
+
   /** Create new match for a user --> args are user viewing profiles and the profile the user is viewing */
 
   static async createEvaluation(userEvaluating, userEvaluated) {
@@ -71,9 +66,12 @@ class RollplayApi {
     return res.user;
   }
 
-  /** get random user from database */
+  /** returns all of user's matches (evaluation == 'accepted') */
 
-
+    static async getUserMatches(username) {
+      let res = await this.request(`evaluations/matches/${username}`);
+      return res;
+    }
 
   /** Get token for login from username, password. */
 
