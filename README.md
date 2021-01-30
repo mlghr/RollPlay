@@ -12,7 +12,7 @@ First, `git clone` the project into an empty folder.
 This next line is enough to install all dependencies between folders. Make sure that all of the dependencies in the root folder, back-end, and front-end install successfully.
 
 - From the *root* folder:
- `npm i && cd frontend && npm i && cd .. && cd backend && npm i && cd ..`
+`npm run rollplay`
 
 This should also return you to your root project folder. To run the app from this point, create your database from the terminal.
 
