@@ -138,6 +138,7 @@ function SignupForm({ signup }) {
                     type="text"
                     name="picture"
                     className="form-control"
+                    value={formData.picture}
                     onChange={handleChange}
                   />
                 </div>

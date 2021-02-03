@@ -57,8 +57,8 @@ function MatchCarousel() {
         ...userData,
         {
           username: res.username,
-          first: res.first_name,
-          last: res.last_name,
+          first: res.firstName,
+          last: res.lastName,
           age: res.age,
           about: res.about,
           picture: res.picture,
@@ -71,20 +71,28 @@ function MatchCarousel() {
     }
   }
 
+  // TODO: refactor skipUser and matchUser --> essentially the same except for the evt.target value
+
+  /* take in the currentUser and the user currently being displayed and the choice based on button */
   const skipUser = () => {
+    const user_evaluating = currentUser.username;
+    const user_evaluated = user.username;
+    let evaluation = user.evaluation;
+    evaluation = 'rejected';
+    RollplayApi.createEvaluation(user_evaluating, user_evaluated, evaluation);
     callRandom();
+    console.debug(user);
   }
 
-  /* need to take in the currentUser and the user currently being displayed */
 
   const matchUser = () => {
     const user_evaluating = currentUser.username;
     const user_evaluated = user.username;
-    const evaluation = user.evaluation;
+    let evaluation = user.evaluation;
     evaluation = 'accepted';
-
     RollplayApi.createEvaluation(user_evaluating, user_evaluated, evaluation);
     getNewUser();
+    console.debug(user);
   };
 
   const startCarousel = () => {
@@ -92,14 +100,21 @@ function MatchCarousel() {
     setIsReady(true);
   }
 
-  const userToDisplay = user.map(u => (
-    <MatchCard key={u.id} 
-          first={u.first} 
-          last={u.last_name} 
-          city={u.city}
-          country={u.country}
-          age={u.age}
-          src={u.src} /> ));
+
+
+
+  const userToDisplay =  
+    user.map(user => 
+    <MatchCard key={user.id} 
+      first={user.first} 
+      last={user.last} 
+      city={user.city}
+      country={user.country}
+      age={user.age}
+      about={user.about}
+      src={user.src || user.picture} /> 
+    )
+
   
     return (
       <div>
@@ -115,7 +130,7 @@ function MatchCarousel() {
             Tap/hover to learn more
             {userToDisplay}
               <div className="carousel-container">
-                <img src={user.src}/>
+                <img src={user.src} alt=""/>
                 <button className="skipBtn btn btn-danger" onClick={skipUser}>Skip</button>
                 <button className="matchBtn btn btn-success" onClick={matchUser}>Match</button> 
               </div>
