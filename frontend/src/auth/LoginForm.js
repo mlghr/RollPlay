@@ -37,7 +37,7 @@ function LoginForm({ login }) {
     evt.preventDefault();
     let result = await login(formData);
     if (result.success) {
-      history.push("/companies");
+      history.push("/match");
     } else {
       setFormErrors(result.errors);
     }
@@ -46,7 +46,7 @@ function LoginForm({ login }) {
   /** Update form data field */
   function handleChange(evt) {
     const { name, value } = evt.target;
-    setFormData(l => ({ ...l, [name]: value }));
+    setFormData(logindata => ({ ...logindata, [name]: value }));
   }
 
   return (

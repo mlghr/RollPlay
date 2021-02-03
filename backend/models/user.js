@@ -51,13 +51,13 @@ class User {
 
   /** Register user with data.
    *
-   * Returns { username, firstName, lastName, email, isAdmin }
+   * Returns { username, firstName, lastName, age, about, email, isAdmin }
    *
    * Throws BadRequestError on duplicates.
    **/
 
   static async register(
-      { username, password, firstName, lastName, email, isAdmin }) {
+      { username, password, firstName, lastName, age, about, picture, email, isAdmin }) {
     const duplicateCheck = await db.query(
           `SELECT username
            FROM users
@@ -77,15 +77,21 @@ class User {
             password,
             first_name,
             last_name,
+            age,
+            about,
+            picture,
             email,
             is_admin)
-           VALUES ($1, $2, $3, $4, $5, $6)
-           RETURNING username, first_name AS "firstName", last_name AS "lastName", email, is_admin AS "isAdmin"`,
+           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+           RETURNING username, first_name AS "firstName", last_name AS "lastName", age, about, email, is_admin AS "isAdmin"`,
         [
           username,
           hashedPassword,
           firstName,
           lastName,
+          age,
+          about,
+          picture,
           email,
           isAdmin,
         ],
@@ -128,6 +134,8 @@ class User {
                   first_name AS "firstName",
                   last_name AS "lastName",
                   email,
+                  age,
+                  about,
                   is_admin AS "isAdmin"
            FROM users
            WHERE username = $1`,
@@ -146,8 +154,11 @@ class User {
   static async getRandom(){
     const result = await db.query(
       `SELECT username,
-              first_name,
-              last_name
+              first_name AS "firstName",
+              last_name AS "lastName",
+              age,
+              about,
+              picture
       FROM users
       ORDER BY RANDOM()
       LIMIT 1`);
@@ -165,15 +176,15 @@ class User {
    * all the fields; this only changes provided ones.
    *
    * Data can include:
-   *   { firstName, lastName, password, email, isAdmin }
+   *   { firstName, lastName, password, age, about, email, isAdmin }
    *
-   * Returns { username, firstName, lastName, email, isAdmin }
+   * Returns { username, firstName, lastName, age, about, email, isAdmin }
    *
    * Throws NotFoundError if not found.
    *
    * WARNING: this function can set a new password or make a user an admin.
    * Callers of this function must be certain they have validated inputs to this
-   * or a serious security risks are opened.
+   * or serious security risks are opened.
    */
 
   static async update(username, data) {
@@ -197,6 +208,8 @@ class User {
                                 first_name AS "firstName",
                                 last_name AS "lastName",
                                 email,
+                                age,
+                                about,
                                 is_admin AS "isAdmin"`;
     const result = await db.query(querySql, [...values, username]);
     const user = result.rows[0];

@@ -25,7 +25,7 @@ router.get("/", async (req, res, next) => {
  *
  **/
 
-router.get("/:username", async (req, res, next) => {
+router.get("/:username", async(req, res, next) => {
   try {
     let evaluation = await Evaluation.get(req.params.username);
     return res.json({evaluation});
@@ -35,19 +35,28 @@ router.get("/:username", async (req, res, next) => {
   }
 });
 
-router.get("/matches/:username", async (req,res,next) => {
+/** returns all interactions which have been 
+  * evaluated on both sides (both user_evaluating 
+  * and user_evaluated have made a decision 
+  **/
+
+router.get("/matches/:username", async(req, res, next) => {
   try{
-    let evaluation = await Evaluation.getMatches(req.params.username);
-    return res.json({evaluation});
+    let evaluations = await Evaluation.getMatches(req.params.username);
+    return res.json({evaluations});
   } catch(err){
     return next(err);
   }
 })
 
+/** Once a user has made a decsion, the evaluation is stored */
+
 router.post("/create", async(req, res, next) => {
   try {
-    let evaluation = await Evaluation.create(req.body);
-    return res.json({evaluation});
+    const { user_evaluating, user_evaluated, evaluation } = req.body;
+    console.log(user_evaluating);
+    let evalRes = await Evaluation.create(user_evaluating, user_evaluated, evaluation);
+    return res.json({evalRes});
   }
   catch(err) {
     return next(err);

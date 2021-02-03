@@ -25,6 +25,8 @@ function ProfileForm() {
   const [formData, setFormData] = useState({
     firstName: currentUser.firstName,
     lastName: currentUser.lastName,
+    age: currentUser.age,
+    about: currentUser.about,
     email: currentUser.email,
     username: currentUser.username,
     password: "",
@@ -57,8 +59,10 @@ function ProfileForm() {
     let profileData = {
       firstName: formData.firstName,
       lastName: formData.lastName,
+      age: formData.age,
+      about: formData.about,
       email: formData.email,
-      password: formData.password,
+      password: formData.password
     };
 
     let username = formData.username;
@@ -115,6 +119,24 @@ function ProfileForm() {
                     name="lastName"
                     className="form-control"
                     value={formData.lastName}
+                    onChange={handleChange}
+                />
+              </div>
+              <div className="form-group">
+                <label>Age</label>
+                <input
+                    name="age"
+                    className="form-control"
+                    value={formData.age}
+                    onChange={handleChange}
+                />
+              </div>
+              <div className="form-group">
+                <label>About</label>
+                <input
+                    name="about"
+                    className="form-control"
+                    value={formData.about}
                     onChange={handleChange}
                 />
               </div>

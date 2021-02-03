@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+
 import Alert from "../shared/Alert";
 
 /** Signup form.
@@ -13,11 +15,15 @@ import Alert from "../shared/Alert";
  */
 
 function SignupForm({ signup }) {
+  const history = useHistory();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
     firstName: "",
     lastName: "",
+    age: "",
+    about: "",
+    picture: "",
     email: "",
   });
   const [formErrors, setFormErrors] = useState([]);
@@ -29,9 +35,16 @@ function SignupForm({ signup }) {
       "formErrors=", formErrors,
   );
 
+  // For uploading a file. Need to implement useRef to have this function properly.
+  // function handleFileChange(evt) {
+  //   const {value} = evt.target;
+  //   fileInput.current.value = value;
+  //   console.debug(fileInput);
+  // }
+
   /** Handle form submit:
    *
-   * Calls login func prop and, if successful, redirect to /companies.
+   * Calls login func prop and, if successful, redirect to /match.
    */
 
   async function handleSubmit(evt) {
@@ -39,16 +52,17 @@ function SignupForm({ signup }) {
     let result = await signup(formData);
     if (result.success) {
       console.log('sign up success')
+      history.push('/match')
     } else {
       setFormErrors(result.errors);
     }
   }
-
   /** Update form data field */
   function handleChange(evt) {
     const { name, value } = evt.target;
     setFormData(data => ({ ...data, [name]: value }));
   }
+
 
   return (
       <div className="SignupForm">
@@ -77,7 +91,6 @@ function SignupForm({ signup }) {
                       onChange={handleChange}
                   />
                 </div>
-
                 <div className="form-group">
                   <label>First name</label>
                   <input
@@ -96,6 +109,36 @@ function SignupForm({ signup }) {
                       value={formData.lastName}
                       onChange={handleChange}
                       autoComplete="family-name"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Age</label>
+                  <input
+                      name="age"
+                      className="form-control"
+                      value={formData.age}
+                      onChange={handleChange}
+                      autoComplete="age"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>About</label>
+                  <textarea
+                      type="text"
+                      name="about"
+                      rows="3"
+                      className="form-control"
+                      value={formData.about}
+                      onChange={handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Picture</label>
+                  <input 
+                    type="text"
+                    name="picture"
+                    className="form-control"
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="form-group">

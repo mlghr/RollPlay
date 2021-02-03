@@ -23,11 +23,26 @@
       "minLength": 1,
       "maxLength": 30
     },
+    "age": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 3
+    },
+    "about": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
     "email": {
       "type": "string",
       "minLength": 6,
       "maxLength": 60,
       "format": "email"
+    },
+    "picture": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 300
     }
   },
   "additionalProperties": false,
@@ -36,6 +51,9 @@
     "firstName",
     "lastName",
     "password",
+    "age",
+    "about",
+    "picture",
     "email"
   ]
 }

@@ -11,14 +11,16 @@
 .flip-container {
     background-color: white;
     padding: 15px;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
 }
 
 .flip-card {
     background-color: transparent;
     width: 800px;
-    height: 700px;
-    text-align: center;
-    margin-left: 610px;
+    height: 600px;
+    margin-left: 600px;
   }
   
   /* This container is needed to position the front and back side */
@@ -27,7 +29,7 @@
     width: 100%;
     height: 100%;
     text-align: center;
-    transition: transform 0.3s;
+    transition: transform 0.5s;
     transform-style: preserve-3d;
   }
   

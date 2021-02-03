@@ -15,15 +15,15 @@ class Evaluation {
     return result.rows[0];
   }
 
-  static async get(id){
+  static async get(user_evaluating){
     const result = await db.query(
       `SELECT id 
               user_evaluating,
               user_evaluated,
               evaluation
       FROM evaluations
-      WHERE id = $1`,
-      [id]);
+      WHERE user_evaluating = $1`,
+      [user_evaluating]);
 
     return result.rows[0];
   }
@@ -35,14 +35,14 @@ class Evaluation {
         user_evaluated,
         evaluation)
       VALUES ($1, $2, $3)
-      RETURNING evaluation`,
+      RETURNING user_evaluating, user_evaluated, evaluation`,
       [user_evaluating, user_evaluated, evaluation]
     )
 
     return result.rows[0];
   }      
 
-  static async getMatches(user_evaluating){
+  static async getMatches(){
     const result = await db.query(
       `SELECT evaluations.user_evaluating 
         FROM evaluations

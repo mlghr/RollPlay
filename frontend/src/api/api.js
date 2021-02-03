@@ -52,26 +52,30 @@ class RollplayApi {
   /** retrieve random user from DB */
 
   static async getRandomUser(){
-    let res = await this.request(`users/random`);
+    let res = await this.request(`matches/random`);
 
-    return res;
+    return res.user;
   }
 
-  //EVALUATION REQUESTS
+  // EVALUATION REQUESTS
 
   /** Create new match for a user --> args are user viewing profiles and the profile the user is viewing */
 
-  static async createEvaluation(userEvaluating, userEvaluated) {
-    let res = await this.request(`evaluations/create`, {userEvaluating, userEvaluated}, "post");
+  static async createEvaluation(data) {
+    console.log(data)
+    let res = await this.request(`evaluations/create`, data, "post");
     return res.user;
   }
 
   /** returns all of user's matches (evaluation == 'accepted') */
 
-    static async getUserMatches(username) {
-      let res = await this.request(`evaluations/matches/${username}`);
-      return res;
-    }
+  static async getUserMatches(username) {
+    let res = await this.request(`evaluations/matches/${username}`);
+    return res;
+  }
+
+
+  // AUTH REQUESTS
 
   /** Get token for login from username, password. */
 
