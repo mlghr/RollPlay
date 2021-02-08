@@ -6,18 +6,18 @@ CREATE TABLE users (
   last_name TEXT NOT NULL,
   age TEXT DEFAULT 'Not provided',
   about TEXT NOT NULL,
-  picture TEXT,
+  picture TEXT DEFAULT 'https://source.unsplash.com/random/600x800',
   email TEXT NOT NULL,
     CHECK (position('@' IN email) > 1),
   is_admin BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE evaluations (
-    id SERIAL PRIMARY KEY,
-    user_evaluating TEXT,
-    -- your username
-    user_evaluated TEXT,
+    evaluating_user_id INTEGER REFERENCES users(id),
+    -- logged in user
+    evaluating_user_id INTEGER REFERENCES users(id),
     -- other user you are looking at
-    evaluation TEXT DEFAULT 'undecided'
+    evaluation TEXT,
     -- accepted or rejected
+    PRIMARY KEY(evaluating_user_id, evaluating_user_id)
 );

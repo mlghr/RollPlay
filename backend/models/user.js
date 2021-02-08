@@ -109,7 +109,8 @@ class User {
 
   static async findAll() {
     const result = await db.query(
-          `SELECT username,
+          `SELECT id,
+                  username,
                   first_name AS "firstName",
                   last_name AS "lastName",
                   email,
@@ -130,7 +131,8 @@ class User {
 
   static async get(username) {
     const userRes = await db.query(
-          `SELECT username,
+          `SELECT id,
+                  username,
                   first_name AS "firstName",
                   last_name AS "lastName",
                   email,
@@ -151,21 +153,20 @@ class User {
 
   /** Return random user from DB */
 
+  
+
   static async getRandom(){
     const result = await db.query(
-      `SELECT username,
+      `SELECT id,
+              username,
               first_name AS "firstName",
               last_name AS "lastName",
               age,
               about,
-              picture
+              picture 
       FROM users
-      ORDER BY RANDOM()
-      LIMIT 1`);
-
-    if (!result.rows[0]) {
-      throw new ExpressError(`No such user`, 404);
-    }
+      WHERE id NOT IN (SELECT evaluating_user_id FROM evaluations WHERE evaluating_user_id = 1) 
+      AND id != 1`);
 
     return result.rows[0];
   }

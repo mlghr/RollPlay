@@ -1,6 +1,5 @@
 import axios from "axios";
 
-const RU_API = "https://randomuser.me/api";
 const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
 
 /** API Class.
@@ -40,15 +39,6 @@ class RollplayApi {
     return res.user;
   }
 
-  /** Get random user from randomuser.me API */
-  static async getUserRandomMe(){ 
-    // The information returned can be altered in the params if needed
-    let randomMeRes = await axios.get(`${RU_API}/?inc=name,location,dob,login,picture,email,id&results=1`);
-    const randomUser = randomMeRes.data.results[0];
-
-    return randomUser;
-  }
-
   /** retrieve random user from DB */
 
   static async getRandomUser(){
@@ -62,7 +52,6 @@ class RollplayApi {
   /** Create new match for a user --> args are user viewing profiles and the profile the user is viewing */
 
   static async createEvaluation(data) {
-    console.log(data)
     let res = await this.request(`evaluations/create`, data, "post");
     return res.user;
   }

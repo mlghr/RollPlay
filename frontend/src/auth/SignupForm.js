@@ -133,7 +133,7 @@ function SignupForm({ signup }) {
                   />
                 </div>
                 <div className="form-group">
-                  <label>Picture</label>
+                  <label>Picture <i>(URL Text)</i> </label>
                   <input 
                     type="text"
                     name="picture"

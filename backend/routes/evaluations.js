@@ -4,9 +4,24 @@ const Evaluation = require("../models/evaluation");
 const router = new Router();
 
 
+
+/** Once a user has made a decsion, the evaluation is stored */
+
+router.post("/create", async(req, res, next) => {
+  try {
+    console.log(req.body);
+    const { evaluating_user_id, evaluated_user_id, evaluation } = req.body;
+    let newEval = await Evaluation.create(evaluating_user_id, evaluated_user_id, evaluation);
+    return res.json({newEval});
+  }
+  catch(err) {
+    return next(err);
+  }
+});
+
 /** get list of evaluations.
  *
- * => {evaluations: [{user_evaluating, user_evaluated}, ...]}
+ * => {evaluations: [{evaluating_user_id, evaluated_user_id}, ...]}
  *
  **/
 router.get("/", async (req, res, next) => {
@@ -21,7 +36,7 @@ router.get("/", async (req, res, next) => {
 
 /** get detail of evaluation.
  *
- * => {evaluation: {user_evaluating, user_evaluated, evaluation}}
+ * => {evaluation: {evaluating_user_id, evaluated_user_id, evaluation}}
  *
  **/
 
@@ -36,8 +51,8 @@ router.get("/:username", async(req, res, next) => {
 });
 
 /** returns all interactions which have been 
-  * evaluated on both sides (both user_evaluating 
-  * and user_evaluated have made a decision 
+  * evaluated on both sides (both evaluating_user_id 
+  * and evaluated_user_id have made a decision 
   **/
 
 router.get("/matches/:username", async(req, res, next) => {
@@ -48,19 +63,5 @@ router.get("/matches/:username", async(req, res, next) => {
     return next(err);
   }
 })
-
-/** Once a user has made a decsion, the evaluation is stored */
-
-router.post("/create", async(req, res, next) => {
-  try {
-    const { user_evaluating, user_evaluated, evaluation } = req.body;
-    console.log(user_evaluating);
-    let evalRes = await Evaluation.create(user_evaluating, user_evaluated, evaluation);
-    return res.json({evalRes});
-  }
-  catch(err) {
-    return next(err);
-  }
-});
 
 module.exports = router;

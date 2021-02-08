@@ -9,34 +9,33 @@ class Evaluation {
   static async all(){
     const result = await db.query(`SELECT * FROM evaluations`)
 
-    if(!result){
+    if(!result.rows[0]){
       throw new ExpressError("There are no evaluations", 404)
     }
     return result.rows[0];
   }
 
-  static async get(user_evaluating){
+  static async get(evaluating_user_id){
     const result = await db.query(
-      `SELECT id 
-              user_evaluating,
-              user_evaluated,
+      `SELECT evaluating_user_id,
+              evaluated_user_id,
               evaluation
       FROM evaluations
-      WHERE user_evaluating = $1`,
-      [user_evaluating]);
+      WHERE evaluating_user_id = $1`,
+      [evaluating_user_id]);
 
     return result.rows[0];
   }
 
-  static async create(user_evaluating, user_evaluated, evaluation){
+  static async create(evaluating_user_id, evaluated_user_id, evaluation){
     const result = await db.query(
       `INSERT INTO evaluations (
-        user_evaluating,
-        user_evaluated,
+        evaluating_user_id,
+        evaluated_user_id,
         evaluation)
       VALUES ($1, $2, $3)
-      RETURNING user_evaluating, user_evaluated, evaluation`,
-      [user_evaluating, user_evaluated, evaluation]
+      RETURNING evaluating_user_id, evaluated_user_id, evaluation`,
+      [evaluating_user_id, evaluated_user_id, evaluation]
     )
 
     return result.rows[0];
@@ -44,14 +43,13 @@ class Evaluation {
 
   static async getMatches(){
     const result = await db.query(
-      `SELECT evaluations.user_evaluating 
+      `SELECT DISTINCT evaluations.evaluating_user_id, evaluations.evaluated_user_id, evaluations.evaluation
         FROM evaluations
-          INNER JOIN evaluations as OtherEvaluations
-              ON evaluations.user_evaluating = OtherEvaluations.user_evaluated
-                  AND OtherEvaluations.evaluation = 'accepted'
-      WHERE evaluations.user_evaluating = user_evaluated and evaluations.evaluation = 'accepted'`
+        INNER JOIN evaluations as OtherEvaluations
+            ON evaluations.evaluating_user_id = OtherEvaluations.evaluated_user_id
+                AND OtherEvaluations.evaluation = 'accepted'
+        WHERE evaluations.evaluating_user_id = otherEvaluations.evaluated_user_id and evaluations.evaluation = 'accepted'`
     )
-
     return result.rows[0];
   }
 }
