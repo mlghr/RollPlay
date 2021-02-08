@@ -9,9 +9,8 @@ const router = new Router();
 
 router.post("/create", async(req, res, next) => {
   try {
-    console.log(req.body);
-    const { evaluating_user_id, evaluated_user_id, evaluation } = req.body;
-    let newEval = await Evaluation.create(evaluating_user_id, evaluated_user_id, evaluation);
+    const { evaluatingUserID, evaluatedUserID, evalDecision } = req.body;
+    let newEval = await Evaluation.create(evaluatingUserID, evaluatedUserID, evalDecision);
     return res.json({newEval});
   }
   catch(err) {

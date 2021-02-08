@@ -11,6 +11,7 @@ function MatchCarousel() {
   const { currentUser } = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState([]);
+  const [evaluation, setEvaluation] = useState({});
 
   /* generate new user from DB to populate the next carousel image */
 
@@ -38,22 +39,37 @@ function MatchCarousel() {
 
   // TODO: refactor skipUser and matchUser --> essentially the same except for the evt.target value
 
-  /* take in the currentUser, the user being displayed, and the match result based on which button is clicked */
-  const skipUser = () => {
-    const evaluating_user_id = currentUser.id;
-    const evaluated_user_id = user[0].id;
-    const evaluation = 'rejected';
-    RollplayApi.createEvaluation(evaluating_user_id, evaluated_user_id, evaluation);
+  /* take in the currentUser and the user currently being displayed and the choice based on which button */
+  function skipUser(evt) {
+    evt.preventDefault();
+    setEvaluation([
+      {
+        evaluatingUserID: currentUser.id,
+        evaluatedUserID: user[0].id,
+        evalDecision: 'rejected'
+      }
+    ])
+    console.log(evaluation);
+    console.log(`DATA SENT: ${JSON.stringify(evaluation)}`)
+    RollplayApi.createEvaluation({evaluation});
   }
 
 
-  const matchUser = () => {
-    const evaluating_user_id = currentUser.id;
-    const evaluated_user_id = user[0].id;
-    const evaluation = 'accepted';
-    console.log(`DATA SENT: ${currentUser.id}, ${user[0].id},  ${evaluation}`)
-    RollplayApi.createEvaluation(evaluating_user_id, evaluated_user_id, evaluation);  
+  function matchUser(evt) {
+    evt.preventDefault();
+    setEvaluation([
+      {
+        evaluatingUserID: currentUser.id,
+        evaluatedUserID: user[0].id,
+        evalDecision: 'accepted'
+      }
+    ])
+    console.log(evaluation);
+    console.log(`DATA SENT: ${JSON.stringify(evaluation)}`)
+    RollplayApi.createEvaluation(evaluation);
   };
+
+  
 
   const userToDisplay =  
     user.map(user => 
@@ -70,7 +86,7 @@ function MatchCarousel() {
 
     useEffect(() => {
       callRandom();
-    }, [setUser])
+    }, [])
     
     return (
       <div>
