@@ -11,7 +11,7 @@ function MatchCarousel() {
   const { currentUser } = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState([]);
-  const [evaluation, setEvaluation] = useState({});
+  const [evaluation, setEvaluation] = useState({})
 
   /* generate new user from DB to populate the next carousel image */
 
@@ -30,7 +30,14 @@ function MatchCarousel() {
           about: res.about,
           picture: res.picture
         }
-      ]);
+      ], console.log(user));
+
+      setEvaluation({
+        evaluatingUserID: currentUser.id,
+        evaluatedUserID: res.id,
+        evalDecision: null
+      });
+
       setIsLoading(false);
     } catch(err){
       console.debug(err);
@@ -42,34 +49,16 @@ function MatchCarousel() {
   /* take in the currentUser and the user currently being displayed and the choice based on which button */
   function skipUser(evt) {
     evt.preventDefault();
-    setEvaluation([
-      {
-        evaluatingUserID: currentUser.id,
-        evaluatedUserID: user[0].id,
-        evalDecision: 'rejected'
-      }
-    ])
-    console.log(evaluation);
-    console.log(`DATA SENT: ${JSON.stringify(evaluation)}`)
+    evaluation.evalDecision = 'rejected';
     RollplayApi.createEvaluation({evaluation});
   }
 
 
   function matchUser(evt) {
     evt.preventDefault();
-    setEvaluation([
-      {
-        evaluatingUserID: currentUser.id,
-        evaluatedUserID: user[0].id,
-        evalDecision: 'accepted'
-      }
-    ])
-    console.log(evaluation);
-    console.log(`DATA SENT: ${JSON.stringify(evaluation)}`)
+    evaluation.evalDecision = 'accepted';
     RollplayApi.createEvaluation(evaluation);
   };
-
-  
 
   const userToDisplay =  
     user.map(user => 
@@ -90,24 +79,22 @@ function MatchCarousel() {
     
     return (
       <div>
-          <>
-            {isLoading ? 
-            <div className="container text-center">
-              <div className="lead">Not loading? Try refreshing the page</div>
-              <LoadingSpinner/>
-            </div>
-             : 
-            <div style={{textAlign: "center", fontFamily: "Lucida Sans"}}>
-            Tap/hover to learn more
-            {userToDisplay}
-              <div className="carousel-container">
-                <img src={user.src} alt=""/>
-                <button className="skipBtn btn btn-danger" onClick={skipUser}>Skip</button>
-                <button className="matchBtn btn btn-success" onClick={matchUser}>Match</button> 
-              </div>
-            </div>
-            }
-          </>
+        {isLoading ? 
+        <div className="container text-center">
+          <div className="lead">Not loading? Try refreshing the page</div>
+          <LoadingSpinner/>
+        </div>
+         : 
+        <div style={{textAlign: "center", fontFamily: "Lucida Sans"}}>
+        Tap/hover to learn more
+        {userToDisplay}
+          <div className="carousel-container">
+            <img src={user.src} alt=""/>
+            <button className="skipBtn btn btn-danger" onClick={skipUser}>Skip</button>
+            <button className="matchBtn btn btn-success" onClick={matchUser}>Match</button> 
+          </div>
+        </div>
+        }
       </div>
     );
 }

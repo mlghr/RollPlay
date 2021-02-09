@@ -10,6 +10,7 @@ const router = new Router();
 router.post("/create", async(req, res, next) => {
   try {
     const { evaluatingUserID, evaluatedUserID, evalDecision } = req.body;
+    console.log({evaluatingUserID, evaluatedUserID, evalDecision})
     let newEval = await Evaluation.create(evaluatingUserID, evaluatedUserID, evalDecision);
     return res.json({newEval});
   }

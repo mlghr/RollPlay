@@ -53,7 +53,6 @@ class RollplayApi {
 
   static async createEvaluation(data) {
     let res = await this.request(`evaluations/create`, data, "post");
-    return res.user;
   }
 
   /** returns all of user's matches (evaluation == 'accepted') */

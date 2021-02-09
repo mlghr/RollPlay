@@ -226,7 +226,7 @@ class User {
   static async remove(username) {
     let result = await db.query(
           `DELETE
-           FROM users
+           FROM users 
            WHERE username = $1
            RETURNING username`,
         [username],
