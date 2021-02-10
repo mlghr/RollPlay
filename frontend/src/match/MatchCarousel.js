@@ -18,7 +18,7 @@ function MatchCarousel() {
   async function callRandom () {
     try {
       setIsLoading(true);
-      let res = await RollplayApi.getRandomUser(currentUser);
+      let res = await RollplayApi.getRandomUser();
 
       setUser([
         {
@@ -28,6 +28,7 @@ function MatchCarousel() {
           last: res.lastName,
           age: res.age,
           about: res.about,
+          email: res.email,
           picture: res.picture
         }
       ]);
@@ -72,12 +73,13 @@ function MatchCarousel() {
       country={user.country}
       age={user.age}
       about={user.about}
+      email={user.email}
       src={user.picture} /> 
     )
 
     useEffect(() => {
       callRandom();
-    })
+    }, [])
     
     return (
       <div>
@@ -87,8 +89,8 @@ function MatchCarousel() {
           <LoadingSpinner/>
         </div>
          : 
-        <div style={{textAlign: "center", fontFamily: "Lucida Sans"}}>
-        Tap/hover to learn more
+        <div className="text-center">
+        <h3>Tap or Hover to learn more</h3>
         {userToDisplay}
           <div className="carousel-container">
             <img src={user.src} alt=""/>
