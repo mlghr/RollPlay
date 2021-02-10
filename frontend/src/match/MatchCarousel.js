@@ -50,7 +50,8 @@ function MatchCarousel() {
   function skipUser(evt) {
     evt.preventDefault();
     evaluation.evalDecision = 'rejected';
-    RollplayApi.createEvaluation({evaluation});
+    RollplayApi.createEvaluation(evaluation);
+    callRandom();
   }
 
 
@@ -58,6 +59,7 @@ function MatchCarousel() {
     evt.preventDefault();
     evaluation.evalDecision = 'accepted';
     RollplayApi.createEvaluation(evaluation);
+    callRandom();
   };
 
   const userToDisplay =  

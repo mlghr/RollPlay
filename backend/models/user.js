@@ -165,8 +165,12 @@ class User {
               about,
               picture 
       FROM users
-      WHERE id NOT IN (SELECT evaluating_user_id FROM evaluations WHERE evaluating_user_id = 1) 
-      AND id != 1`);
+      WHERE id NOT IN (SELECT evaluating_user_id 
+                      FROM evaluations 
+                      WHERE evaluations.evaluation = 'accepted' OR evaluations.evaluation = 'rejected'
+                      AND evaluating_user_id != id)
+      ORDER BY RANDOM()
+      LIMIT 1`);
 
     return result.rows[0];
   }

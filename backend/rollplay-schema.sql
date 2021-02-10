@@ -6,7 +6,7 @@ CREATE TABLE users (
   last_name TEXT NOT NULL,
   age TEXT DEFAULT 'Not provided',
   about TEXT NOT NULL,
-  picture TEXT DEFAULT 'https://source.unsplash.com/random/600x700',
+  picture TEXT DEFAULT 'https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png',
   email TEXT NOT NULL,
     CHECK (position('@' IN email) > 1),
   is_admin BOOLEAN NOT NULL DEFAULT FALSE

@@ -43,7 +43,6 @@ class RollplayApi {
 
   static async getRandomUser(){
     let res = await this.request(`matches/random`);
-
     return res.user;
   }
 
@@ -52,7 +51,7 @@ class RollplayApi {
   /** Create new match for a user --> args are user viewing profiles and the profile the user is viewing */
 
   static async createEvaluation(data) {
-    let res = await this.request(`evaluations/create`, data, "post");
+    await this.request(`evaluations/create`, data, "post");
   }
 
   /** returns all of user's matches (evaluation == 'accepted') */

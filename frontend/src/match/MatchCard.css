@@ -1,15 +1,4 @@
-/* .genBtn {
-    font-size: large;
-    background-color: rgb(250, 249, 241);
-    color: black;
-    padding: 8px;
-    border-radius: 10px;
-    border: solid 3px black;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-} */
-
 .flip-container {
-    background-color: white;
     padding: 15px;
     justify-content: center;
     text-align: center;
@@ -21,7 +10,7 @@
     width: 800px;
     height: 600px;
     margin-left: 600px;
-  }
+}
   
   /* This container is needed to position the front and back side */
   .flip-card-inner {
@@ -31,7 +20,7 @@
     text-align: center;
     transition: transform 0.5s;
     transform-style: preserve-3d;
-  }
+}
   
   /* Do a horizontal flip when you move the mouse over the flip box container */
   .flip-card:hover .flip-card-inner {
@@ -55,17 +44,13 @@
   
   /* Style the front side (fallback if image is missing) */
   .flip-card-front {
-    background-color: #bbb;
+    background-color: transparent;
     color: black;
   }
   
   /* Style the back side */
   .flip-card-back {
-    background-color: white;
-    /* background-image: url(dice-border.jpg);
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat; */
+    background-color: transparent;
     color: white;
     transform: rotateY(180deg);
     align-items: left;
