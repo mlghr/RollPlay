@@ -41,8 +41,8 @@ class RollplayApi {
 
   /** retrieve random user from DB */
 
-  static async getRandomUser(){
-    let res = await this.request(`matches/random`);
+  static async getRandomUser(currUser){
+    let res = await this.request(`matches/random`, currUser);
     return res.user;
   }
 

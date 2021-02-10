@@ -18,7 +18,7 @@ function MatchCarousel() {
   async function callRandom () {
     try {
       setIsLoading(true);
-      let res = await RollplayApi.getRandomUser();
+      let res = await RollplayApi.getRandomUser(currentUser);
 
       setUser([
         {
@@ -30,7 +30,7 @@ function MatchCarousel() {
           about: res.about,
           picture: res.picture
         }
-      ], console.log(user));
+      ]);
 
       setEvaluation({
         evaluatingUserID: currentUser.id,
@@ -77,7 +77,7 @@ function MatchCarousel() {
 
     useEffect(() => {
       callRandom();
-    }, [])
+    })
     
     return (
       <div>

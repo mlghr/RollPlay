@@ -151,11 +151,9 @@ class User {
     return user;
   }
 
-  /** Return random user from DB */
+  /** Return random user from DB based on who has evaluated the current user */
 
-  
-
-  static async getRandom(){
+  static async getRandom(currUser){
     const result = await db.query(
       `SELECT id,
               username,
@@ -166,11 +164,11 @@ class User {
               picture 
       FROM users
       WHERE id NOT IN (SELECT evaluating_user_id 
-                      FROM evaluations 
-                      WHERE evaluations.evaluation = 'accepted' OR evaluations.evaluation = 'rejected'
-                      AND evaluating_user_id != id)
+                      FROM evaluations)
+      AND id != $1
       ORDER BY RANDOM()
-      LIMIT 1`);
+      LIMIT 1`,
+      [currUser]);
 
     return result.rows[0];
   }
