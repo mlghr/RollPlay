@@ -155,17 +155,9 @@ class User {
 
   static async getRandom(){
     const result = await db.query(
-      `SELECT id,
-              username,
-              first_name AS "firstName",
-              last_name AS "lastName",
-              age,
-              about,
-              email,
-              picture 
-      FROM users
-      WHERE id NOT IN (SELECT evaluating_user_id 
-                      FROM evaluations)
+      `SELECT * FROM users u 
+      LEFT JOIN evaluations e
+      ON u.id = e.evaluated_user_id WHERE (e.evaluating_user_id != 1 OR e.evaluating_user_id is null)
       ORDER BY RANDOM()
       LIMIT 1`);
 

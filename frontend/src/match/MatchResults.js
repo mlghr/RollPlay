@@ -6,7 +6,7 @@ function MatchResults() {
   const [matches, setMatches] = useState([]);
 
   async function getUserMatches(){
-    let res = RollplayApi.getUserMatches();
+    let res = await RollplayApi.getUserMatches();
     setMatches([
       {
         id: res.id,
@@ -23,24 +23,21 @@ function MatchResults() {
     getUserMatches();
   }, [])
 
-  const userToDisplay =  
-    matches.map(user => 
+  const usersToDisplay = 
+  matches.map(user => 
     <MatchCard 
       key={user.id} 
       first={user.first} 
-      last={user.last} 
-      city={user.city}
-      country={user.country}
-      age={user.age}
+      last={user.last}
       about={user.about}
-      src={user.picture} 
-      email={user.email}/> 
+      email={user.email}
+      src={user.picture} /> 
     )
 
   return(
     <div>
       <h1 className="text-center">Match Results</h1>
-      {userToDisplay}
+      {usersToDisplay}
     </div>
     
   )

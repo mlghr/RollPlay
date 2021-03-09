@@ -19,8 +19,8 @@ function Homepage() {
   return (
       <div className="Homepage">
         <div className="container text-center">
-          <h1 className="mb-4 font-weight-bold">Roll Play</h1>
-          <p className="lead">Meet gamers on your terms.</p>
+          <h1 className="mb-4 font-weight-bold display-1">Roll Play</h1>
+          <p className="lead display-4">Meet gamers by your rules</p>
           {currentUser
               ? <div className="container">
                   <h2>

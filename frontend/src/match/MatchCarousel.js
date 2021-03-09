@@ -4,6 +4,7 @@ import LoadingSpinner from "../shared/LoadingSpinner";
 
 import RollplayApi from "../api/api";
 import UserContext from "../auth/UserContext";
+import default_pic from "../images/default_pic.png";
 
 import "./MatchCarousel.css";
 
@@ -12,13 +13,14 @@ function MatchCarousel() {
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState([]);
   const [evaluation, setEvaluation] = useState({})
-
+  const DEFAULT_PIC = default_pic;
   /* generate new user from DB to populate the next carousel image */
 
   async function callRandom () {
     try {
       setIsLoading(true);
       let res = await RollplayApi.getRandomUser();
+      console.log(res);
 
       setUser([
         {
@@ -32,6 +34,11 @@ function MatchCarousel() {
           picture: res.picture
         }
       ]);
+      // if no picture is supplied from user, use default image.
+      if (user.picture === undefined || null) {
+        console.log(user.picture);
+        user.picture = DEFAULT_PIC;
+      }
 
       setEvaluation({
         evaluatingUserID: currentUser.id,
@@ -39,7 +46,7 @@ function MatchCarousel() {
         evalDecision: null
       });
 
-      setIsLoading(false);
+      setIsLoading(false)
     } catch(err){
       console.debug(err);
     }

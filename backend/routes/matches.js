@@ -7,8 +7,7 @@ const router = express.Router();
 
 router.get("/random", async (req, res, next) => {
   try {
-    let user = await User.getRandom();
-    console.log(user);
+    const user = await User.getRandom();
     return res.json({user});
   }
   catch (err) {
